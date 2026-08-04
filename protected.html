@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Password Protected</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('xtinaseoul_paintedrealism.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    /* ── Shake animation ── */
+    @keyframes shake {
+      0%   { transform: translateX(0); }
+      15%  { transform: translateX(-6px); }
+      30%  { transform: translateX(6px); }
+      45%  { transform: translateX(-5px); }
+      60%  { transform: translateX(5px); }
+      75%  { transform: translateX(-3px); }
+      90%  { transform: translateX(3px); }
+      100% { transform: translateX(0); }
+    }
+
+    .shake { animation: shake 0.4s ease; }
+
+    /* ── Password card ── */
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      width: 360px;
+      max-width: calc(100vw - 48px);
+    }
+
+    .card-heading {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+/* ── Input ── */
+    .password-input {
+      width: 100%;
+      padding: 10px 12px;
+      background: #f0f0f0;
+      border: 1px solid #c8c8c8;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.15s ease;
+      appearance: none;
+      -webkit-appearance: none;
+      margin-bottom: 8px;
+    }
+
+    .password-input:hover {
+      border-color: #1a1a1a;
+    }
+
+    .password-input:focus {
+      border-color: #1a1a1a;
+    }
+
+    .password-input.error {
+      border-color: #C50606;
+    }
+
+    /* ── Error message ── */
+    .error-msg {
+      font-size: 13px;
+      color: #C50606;
+      letter-spacing: 0.02em;
+      margin-top: 8px;
+      visibility: hidden;
+    }
+
+    .error-msg.visible { visibility: visible; }
+
+    /* ── Button ── */
+    .enter-btn {
+      width: 100%;
+      padding: 8px 12px;
+      background: #D7E3EE;
+      border: 1px solid #8fa3b8;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .enter-btn:hover {
+      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      border-color: #BCC4E1;
+    }
+
+    /* ── Bottom-left blurb ── */
+    .blurb {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      font-size: 14px;
+      line-height: 135%;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <p class="card-heading">Password, please.</p>
+    <input
+      class="password-input"
+      type="password"
+      id="pwd"
+      autocomplete="current-password"
+      spellcheck="false"
+    />
+    <button class="enter-btn" id="enter-btn">Enter</button>
+    <p class="error-msg" id="error-msg">Incorrect password entered</p>
+  </div>
+
+  <div class="blurb">
+    Christina in Seoul, Korea<br />
+    Photo edited in Painted Realism
+  </div>
+
+  <script>
+    const SALT = 'px7kQ2mLvR9nZw4j';
+    const HASH = '3f0eb9b82e88bb33f23e2544346f3ad50bb13954850b9b0d36525589813f0103';
+    const DESTINATION = 'index.html';
+
+    const input = document.getElementById('pwd');
+    const btn = document.getElementById('enter-btn');
+    const errorMsg = document.getElementById('error-msg');
+
+    async function hashInput(value) {
+      const msgBuffer = new TextEncoder().encode(SALT + value);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function attempt() {
+      const hashed = await hashInput(input.value);
+      if (hashed === HASH) {
+        sessionStorage.setItem('auth', 'true');
+        window.location.href = DESTINATION;
+      } else {
+        input.classList.add('error');
+        errorMsg.classList.add('visible');
+        input.classList.remove('shake');
+        void input.offsetWidth;
+        input.classList.add('shake');
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', e => { if (e.key === 'Enter') attempt(); });
+    input.addEventListener('input', () => {
+      input.classList.remove('error');
+      errorMsg.classList.remove('visible');
+    });
+    input.addEventListener('animationend', () => input.classList.remove('shake'));
+  </script>
+</body>
+</html>

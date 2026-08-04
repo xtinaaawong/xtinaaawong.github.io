@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christina Wong — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --color-body: #1a1a1a;
+      --color-secondary: #4d4d4d;
+      --color-border: #e6e6e6;
+      --color-tag-bg: rgba(128, 128, 128, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-helvetica);
+      color: var(--color-body);
+      background: linear-gradient(180deg, #EDF0F1 0%, #E6E9ED 50%, #F0F5F0 100%);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Container ── */
+    .container { width: 100%; padding-inline: 100px; }
+    @media (max-width: 1024px) { .container { padding-inline: 24px; } }
+    @media (max-width: 767px)  { .container { padding-inline: 24px; } }
+
+    /* ── Nav ── */
+    #main-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 100px;
+      background: rgba(237, 240, 241, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: transform 0.35s ease, opacity 0.3s ease;
+    }
+    #main-nav.nav--hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-link {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 15px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+      padding-bottom: 2px;
+      position: relative;
+    }
+    .nav-link:not(.nav-link--button)::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--color-body);
+      transition: width 0.25s ease;
+    }
+    .nav-link:not(.nav-link--button):hover::after { width: 100%; }
+    .nav-link--button {
+      padding: 4px 8px;
+      background: #D7E3EE;
+      border: 1px solid var(--color-secondary);
+      border-radius: 4px;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-link--button:hover {
+      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      border-color: #BCC4E1;
+    }
+
+    /* ── Mobile hamburger button ── */
+    .nav-hamburger {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: #D7E3EE;
+      border: 1px solid var(--color-secondary);
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      letter-spacing: 0.02em;
+      line-height: 1;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .nav-hamburger:hover {
+      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      border-color: #BCC4E1;
+    }
+    .hamburger-icon { display: flex; align-items: center; }
+
+    @media (max-width: 1024px) { #main-nav { padding: 16px 24px; } }
+    @media (max-width: 767px) {
+      #main-nav { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ── Mobile dropdown menu ── */
+    .mobile-menu {
+      position: fixed;
+      top: 60px;
+      left: 24px;
+      right: 24px;
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.98);
+      border-radius: 8px;
+      box-shadow: 0px 4px 16px 4px rgba(55, 71, 131, 0.1);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      transform: translateY(-4px);
+    }
+    .mobile-menu.is-open {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      padding: 8px 0;
+      align-items: center;
+      text-align: center;
+    }
+    .mobile-menu-link {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      padding: 16px 24px;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .mobile-menu-link:not(.mobile-menu-link--button):hover {
+      background: rgba(128, 128, 128, 0.06);
+    }
+    .mobile-menu-link--button {
+      margin: 16px 16px 8px;
+      padding: 4px 8px;
+      width: auto;
+      background: #D7E3EE;
+      border: 1px solid var(--color-secondary);
+      border-radius: 4px;
+      display: inline-block;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .mobile-menu-link--button:hover {
+      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      border-color: #BCC4E1;
+    }
+
+    /* ── Tag ── */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+      background: var(--color-tag-bg);
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    /* ── Hero + Work wrapper (strings span both) ── */
+    .hero-work-wrapper {
+      position: relative;
+      overflow-x: clip;
+    }
+    .hero-strings {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      /* start at the hero text, span to end of work section */
+      top: 120px;
+      left: -13%;
+      width: 116%;
+      bottom: 0;
+    }
+    .hero-strings img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      padding-bottom: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-content {
+      /* 8 of 12 columns at 1512px desktop = ~867px */
+      max-width: 867px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding-top: 150px;
+      padding-bottom: 48px;
+    }
+    .hero-title {
+      font-family: var(--font-helvetica);
+      font-weight: 500;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--color-body);
+    }
+
+    /* ── "effortless" animated word ── */
+    @keyframes ripple {
+      0%   { background-position: 0% 50%; }
+      25%  { background-position: 40% 60%; }
+      50%  { background-position: 100% 50%; }
+      75%  { background-position: 60% 40%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Stroke layer — outer element, transparent fill */
+    .gradient-word {
+      position: relative;
+      display: inline-block;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1px rgba(155, 162, 186, 0.5);
+      color: transparent;
+    }
+    /* Fill layer — ::before clips gradient strictly inside letter shapes */
+    .gradient-word::before {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 0px transparent;
+      background: linear-gradient(90deg,
+        #8f9bbf,
+        #BCC4E1,
+        #dde2f0,
+        #ffffff,
+        #dde2f0,
+        #BCC4E1,
+        #8f9bbf
+      );
+      background-size: 300% 100%;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: ripple 6s ease-in-out infinite;
+    }
+    /* ── Nav logo ripple on hover ── */
+    .nav-logo {
+      position: relative;
+      -webkit-text-fill-color: var(--color-body);
+    }
+    .nav-logo::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      -webkit-text-fill-color: transparent;
+      background: linear-gradient(90deg,
+        #8f9bbf, #BCC4E1, #dde2f0, #ffffff, #dde2f0, #BCC4E1, #8f9bbf
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      animation: ripple 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .nav-logo:hover::after { opacity: 1; }
+    .nav-logo:hover { -webkit-text-fill-color: transparent; }
+
+    .hero-meta { display: flex; flex-direction: column; gap: 16px; }
+    .hero-subtitle {
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--color-body);
+    }
+    .hero-subtitle .divider { color: #c7c7c7; }
+
+    @media (max-width: 1024px) {
+      .hero-title { font-size: 48px; }
+      .hero-content { max-width: 100%; padding-top: 88px; }
+      .work-section { padding-top: 88px; padding-bottom: 88px; }
+      .experience-section { padding-block: 88px; }
+    }
+    @media (max-width: 767px) {
+      .hero-title { font-size: 36px; }
+      .hero-content { padding-top: 88px; padding-bottom: 32px; gap: 24px; }
+      .hero-subtitle { font-size: 16px; }
+      .work-section { padding-top: 48px; padding-bottom: 48px; }
+      .experience-section { padding-block: 48px; }
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--color-secondary);
+    }
+
+    /* ── Work section ── */
+    .work-section { padding-top: 88px; padding-bottom: 88px; position: relative; z-index: 1; }
+    .work-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .cards-grid { display: flex; flex-direction: column; gap: 40px; }
+    .cards-row { display: flex; gap: 24px; }
+
+    /* ── Card ── */
+    .card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--color-border);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0px 4px 12px 4px rgba(55, 71, 131, 0.05);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .card:hover {
+      box-shadow: 0px 8px 24px 6px rgba(55, 71, 131, 0.1);
+      transform: translateY(-2px);
+    }
+    .card--featured { width: 100%; }
+    .card--half { flex: 1 0 0; min-width: 0; }
+
+    .card-image {
+      position: relative;
+      background: #737f83;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+    .card--featured .card-image { height: 450px; padding: 38px; }
+    .card--half .card-image { padding: 24px; min-height: 300px; }
+
+    .card-image-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    }
+    .card-image-main {
+      position: relative;
+      z-index: 1;
+      object-fit: contain;
+      max-width: 100%;
+    }
+    .card--featured .card-image-main { height: 100%; max-height: 390px; }
+    .card--half .card-image-main { width: 100%; height: auto; }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      min-height: 88px;
+      background: rgba(255,255,255,0.8);
+      flex-wrap: wrap;
+    }
+    .card-title {
+      flex: 1 0 200px;
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--color-body);
+      line-height: 1.3;
+    }
+
+    @media (max-width: 1200px) {
+      .card-footer { align-items: flex-start; }
+      .card-title { flex: 0 0 100%; }
+    }
+    @media (max-width: 1024px) {
+      .cards-row { flex-direction: column; }
+      .card--half { flex: 0 0 auto; width: 100%; }
+      .card--featured .card-image { height: auto; min-height: 280px; }
+      .card-title { font-size: 18px; }
+    }
+    @media (max-width: 767px) {
+      .card { border-radius: 8px; }
+      .card--featured .card-image { min-height: 200px; padding: 20px; }
+      .card--half .card-image { padding: 16px; min-height: 180px; }
+      .card-title { font-size: 16px; }
+    }
+
+    /* ── Experience ── */
+    .experience-section {
+      padding-block: 88px;
+    }
+    .experience-inner { display: flex; flex-direction: column; gap: 24px; }
+    .experience-list { display: flex; flex-direction: column; gap: 40px; }
+    .experience-item {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding-bottom: 8px;
+    }
+    .experience-left {
+      flex: 1 0 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .experience-title-group { display: flex; flex-direction: column; gap: 8px; }
+    .experience-role {
+      font-family: var(--font-helvetica);
+      font-weight: 500;
+      font-size: 24px;
+      color: var(--color-body);
+    }
+    .experience-company {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--color-body);
+    }
+    .experience-date {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 14px;
+      color: var(--color-secondary);
+    }
+    .experience-right { flex: 1 0 0; min-width: 0; }
+    .experience-bullets {
+      list-style: disc;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .experience-bullets li {
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--color-secondary);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1024px) {
+      .experience-item { flex-direction: column; gap: 16px; }
+      .experience-role { font-size: 20px; }
+    }
+    @media (max-width: 767px) {
+      .experience-section { padding-block: 48px; }
+      .experience-role { font-size: 18px; }
+      .experience-bullets li { font-size: 15px; }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--color-border);
+      padding-block: 88px;
+      background: linear-gradient(129deg, rgba(188,196,225,0.5) 0.9%, rgba(255,255,255,0.25) 99.1%);
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .footer-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 24px; align-items: center; }
+    .footer-link {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+      padding-bottom: 2px;
+      position: relative;
+    }
+    .footer-link:not(.footer-link--button)::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-body);
+      transition: width 0.25s ease;
+    }
+    .footer-link:not(.footer-link--button):hover::after { width: 100%; }
+    .footer-link--button {
+      border: 1px solid var(--color-secondary);
+      border-radius: 4px;
+      padding: 4px 8px;
+      background: #D7E3EE;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .footer-link--button:hover {
+      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      border-color: #BCC4E1;
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--color-body);
+    }
+
+    @media (max-width: 767px) {
+      footer { padding-block: 48px; }
+      .footer-links { gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-work-wrapper">
+  <div class="hero-strings" aria-hidden="true">
+    <img src="Strings.png" alt="" />
+  </div>
+
+  <!-- ── Hero / Nav ── -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <nav id="main-nav">
+        <a href="index.html" class="nav-logo" data-text="xtina.wong">xtina.wong</a>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="#work" class="nav-link">Work</a>
+          <a href="about.html" class="nav-link">About</a>
+          <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="nav-link">LinkedIn</a>
+          <a href="mailto:xtinalw@gmail.com" class="nav-link nav-link--button">Email</a>
+        </div>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="hamburger-label">Menu</span>
+          <span class="hamburger-icon"><img src="hamburger.svg" alt="" width="12" height="9" /></span>
+        </button>
+      </nav>
+      <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <nav class="mobile-menu-links">
+          <a href="index.html" class="mobile-menu-link">Home</a>
+          <a href="#work" class="mobile-menu-link">Work</a>
+          <a href="about.html" class="mobile-menu-link">About</a>
+          <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="mobile-menu-link">LinkedIn</a>
+          <a href="mailto:xtinalw@gmail.com" class="mobile-menu-link mobile-menu-link--button">Email</a>
+        </nav>
+      </div>
+      <div class="hero-content">
+        <h1 class="hero-title">
+          I simplify complexity into solutions that feel
+          <span class="gradient-word" data-text="effortless">effortless</span> to use.
+        </h1>
+        <div class="hero-meta">
+          <p class="hero-subtitle">
+            Senior Product Designer <span class="divider"> | </span> Currently at BNY (Bank of New York)
+          </p>
+          <div class="tags">
+            <span class="tag">Fintech</span>
+            <span class="tag">Health</span>
+            <span class="tag">Systems</span>
+            <span class="tag">B2B</span>
+            <span class="tag">B2B2C</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured Work ── -->
+  <section id="work" class="work-section">
+    <div class="container work-inner">
+      <p class="section-label">Featured Work</p>
+      <div class="cards-grid">
+
+        <!-- Featured card -->
+        <a href="clientholdings.html" class="card card--featured">
+          <div class="card-image">
+            <img class="card-image-bg" src="noisy-gradients.png" alt="" aria-hidden="true" />
+            <img class="card-image-main" src="clientholdings-image.png" alt="Client Holdings case study" />
+          </div>
+          <div class="card-footer">
+            <p class="card-title">Client Holdings: Surfacing client data that supports financial health, tax, and risk exposure</p>
+            <span class="tag">Fintech</span>
+            <span class="tag">Data Dashboard</span>
+            <span class="tag">B2B</span>
+          </div>
+        </a>
+
+        <!-- Secondary cards -->
+        <div class="cards-row">
+          <a href="restrictions.html" class="card card--half">
+            <div class="card-image">
+              <img class="card-image-bg" src="noisy-gradients.png" alt="" aria-hidden="true" />
+              <img class="card-image-main" src="restrictions-image.png" alt="Restrictions case study" />
+            </div>
+            <div class="card-footer">
+              <p class="card-title">Restrictions: new features with a new streamlined flow</p>
+              <span class="tag">Workflow</span>
+              <span class="tag">B2B</span>
+            </div>
+          </a>
+          <a href="selfservicemetrics.html" class="card card--half">
+            <div class="card-image">
+              <img class="card-image-bg" src="noisy-gradients.png" alt="" aria-hidden="true" />
+              <img class="card-image-main" src="selfservicemetrics-image.png" alt="Self-service metrics case study" />
+            </div>
+            <div class="card-footer">
+              <p class="card-title">Providing clients with their ESPP metrics on a self-service platform</p>
+              <span class="tag">Data Dashboard</span>
+              <span class="tag">Fintech</span>
+              <span class="tag">B2B</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  </div><!-- end .hero-work-wrapper -->
+
+  <!-- ── Experience ── -->
+  <section id="experience" class="experience-section">
+    <div class="container experience-inner">
+      <p class="section-label">Experience</p>
+      <div class="experience-list">
+
+        <div class="experience-item">
+          <div class="experience-left">
+            <div class="experience-title-group">
+              <p class="experience-role">Product Designer</p>
+              <p class="experience-company">@ BNY (Bank of New York)</p>
+            </div>
+            <p class="experience-date">Present</p>
+            <div class="tags">
+              <span class="tag">Fintech</span>
+              <span class="tag">Wealth Management</span>
+            </div>
+          </div>
+          <div class="experience-right">
+            <ul class="experience-bullets">
+              <li>Led design for high-stakes workflows including New Account Opening and Money Movement, streamlining processes critical to advisor and client trust</li>
+              <li>Designed the client holdings, a high-traffic page, giving advisors a single view into a client's financial health, risk exposure, and tax planning needs</li>
+              <li>Replacing fragmented, multi-system lookups with one streamlined page</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-left">
+            <div class="experience-title-group">
+              <p class="experience-role">Lead Product Designer</p>
+              <p class="experience-company">@ Carver Edison</p>
+            </div>
+            <p class="experience-date">2022 – 2024</p>
+            <div class="tags">
+              <span class="tag">Fintech</span>
+              <span class="tag">ESPP</span>
+              <span class="tag">Equity</span>
+            </div>
+          </div>
+          <div class="experience-right">
+            <ul class="experience-bullets">
+              <li>Owned the enrollment experience end-to-end, building functional requirements to scale for a growing client base</li>
+              <li>Increased conversion rates by revamping information architecture and content strategy, breaking through prospect confusion</li>
+              <li>Built an enrollment metrics dashboard, increasing client satisfaction and reducing internal effort by giving public company finance teams the data points needed for their SEC financial reports; met with immediate positivity from stakeholders</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="experience-item">
+          <div class="experience-left">
+            <div class="experience-title-group">
+              <p class="experience-role">UX Designer</p>
+              <p class="experience-company">@ Tempus Technologies</p>
+            </div>
+            <p class="experience-date">2020 – 2022</p>
+            <div class="tags">
+              <span class="tag">Fintech</span>
+              <span class="tag">Payments</span>
+              <span class="tag">Health</span>
+            </div>
+          </div>
+          <div class="experience-right">
+            <ul class="experience-bullets">
+              <li>Led all product design initiatives across the firm, building white-label payment solutions across web, point-of-sale, and terminal mediums for healthcare, manufacturing, food &amp; beverage, and other industries</li>
+              <li>Designed a custom healthcare application for meal planning across health cohorts, integrating the payment system directly into the experience</li>
+              <li>Partnered closely with the CEO and Head of Sales to create prototyped design proposals, increasing RFP win rates</li>
+              <li>Conducted accessibility audits across the product suite</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="container footer-inner">
+      <nav class="footer-links">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="#experience" class="footer-link">Experience</a>
+        <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        <a href="mailto:xtinalw@gmail.com" class="footer-link footer-link--button">Email</a>
+      </nav>
+      <p class="footer-copy">Christina Wong 2026</p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll hide/show nav
+    let lastScrollY = window.scrollY;
+    const mainNav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      const currentY = window.scrollY;
+      if (currentY <= 0) {
+        mainNav.classList.remove('nav--hidden');
+      } else if (currentY > lastScrollY && currentY > 80) {
+        mainNav.classList.add('nav--hidden');
+      } else if (currentY < lastScrollY) {
+        mainNav.classList.remove('nav--hidden');
+      }
+      lastScrollY = currentY;
+    }, { passive: true });
+
+    // Hamburger menu
+    const hamburgerBtn = document.getElementById('nav-hamburger');
+    const mobileMenuEl = document.getElementById('mobile-menu');
+    function openMenu() {
+      mainNav.classList.remove('nav--hidden');
+      hamburgerBtn.classList.add('is-open');
+      mobileMenuEl.classList.add('is-open');
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      mobileMenuEl.setAttribute('aria-hidden', 'false');
+    }
+    function closeMenu() {
+      hamburgerBtn.classList.remove('is-open');
+      mobileMenuEl.classList.remove('is-open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      mobileMenuEl.setAttribute('aria-hidden', 'true');
+    }
+    hamburgerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hamburgerBtn.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+    document.addEventListener('click', (e) => {
+      if (mobileMenuEl.classList.contains('is-open') && !mobileMenuEl.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+        closeMenu();
+      }
+    });
+    mobileMenuEl.querySelectorAll('.mobile-menu-link').forEach(link => link.addEventListener('click', closeMenu));
+    window.addEventListener('scroll', () => {
+      if (mobileMenuEl.classList.contains('is-open')) { lastScrollY = window.scrollY; return; }
+    }, { passive: true });
+
+  </script>
+</body>
+</html>
