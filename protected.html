@@ -40,16 +40,27 @@
     /* ── Password card ── */
     .card {
       background: rgba(255, 255, 255, 0.9);
+      background-image: linear-gradient(
+        rgba(237, 240, 241, 0.5) 0%,
+        rgba(230, 233, 237, 0.5) 50%,
+        rgba(240, 245, 240, 0.5) 100%
+      );
       padding: 32px;
       display: flex;
       flex-direction: column;
+      gap: 0;
       width: 360px;
       max-width: calc(100vw - 48px);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 4px;
     }
 
     .card-heading {
-      font-size: 15px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 400;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       margin-bottom: 24px;
@@ -58,7 +69,8 @@
 /* ── Input ── */
     .password-input {
       width: 100%;
-      padding: 10px 12px;
+      height: 44px;
+      padding: 0 12px;
       background: #f0f0f0;
       border: 1px solid #c8c8c8;
       border-radius: 4px;
@@ -90,10 +102,10 @@
       color: #C50606;
       letter-spacing: 0.02em;
       margin-top: 8px;
-      visibility: hidden;
+      display: none;
     }
 
-    .error-msg.visible { visibility: visible; }
+    .error-msg.visible { display: block; }
 
     /* ── Button ── */
     .enter-btn {
@@ -103,7 +115,7 @@
       border: 1px solid #8fa3b8;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 400;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -142,7 +154,7 @@
       spellcheck="false"
     />
     <button class="enter-btn" id="enter-btn">Enter</button>
-    <p class="error-msg" id="error-msg">Incorrect password entered</p>
+    <p class="error-msg" id="error-msg">Incorrect password</p>
   </div>
 
   <div class="blurb">
