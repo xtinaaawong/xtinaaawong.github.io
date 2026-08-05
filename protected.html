@@ -45,7 +45,7 @@
         rgba(230, 233, 237, 0.5) 50%,
         rgba(240, 245, 240, 0.5) 100%
       );
-      padding: 32px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -59,11 +59,20 @@
     }
 
     .card-heading {
-      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
       font-weight: 400;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       margin-bottom: 24px;
+    }
+
+    .card-heading img {
+      width: 40px;
+      height: auto;
     }
 
 /* ── Input ── */
@@ -112,7 +121,7 @@
       width: 100%;
       padding: 8px 12px;
       background: #D7E3EE;
-      border: 1px solid #8fa3b8;
+      border: 1px solid #c7c7c7;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 14px;
@@ -145,7 +154,7 @@
 <body>
 
   <div class="card">
-    <p class="card-heading">Password, please.</p>
+    <p class="card-heading"><img src="lock.png" alt="lock" />Password</p>
     <input
       class="password-input"
       type="password"
