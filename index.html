@@ -326,14 +326,14 @@
       .hero-title { font-size: 48px; }
       .hero-content { max-width: 100%; padding-top: 88px; }
       .work-section { padding-top: 88px; padding-bottom: 88px; }
-      .experience-section { padding-block: 88px; }
+      .experience-section { padding-top: 0; padding-bottom: 88px; }
     }
     @media (max-width: 767px) {
       .hero-title { font-size: 36px; }
       .hero-content { padding-top: 128px; padding-bottom: 32px; gap: 24px; }
       .hero-subtitle { font-size: 16px; }
       .work-section { padding-top: 48px; padding-bottom: 48px; }
-      .experience-section { padding-block: 48px; }
+      .experience-section { padding-top: 0; padding-bottom: 48px; }
     }
 
     /* ── Section label ── */
@@ -442,7 +442,8 @@
 
     /* ── Experience ── */
     .experience-section {
-      padding-block: 88px;
+      padding-top: 0;
+      padding-bottom: 88px;
     }
     .experience-inner { display: flex; flex-direction: column; gap: 24px; }
     .experience-list { display: flex; flex-direction: column; gap: 40px; }
