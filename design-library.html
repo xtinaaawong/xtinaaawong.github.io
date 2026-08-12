@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design Library — xtina.wong</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Tokens ── */
+    :root {
+      --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Colors */
+      --color-body: #1a1a1a;
+      --color-secondary: #4d4d4d;
+      --color-border: #e6e6e6;
+      --color-tag-bg: rgba(128, 128, 128, 0.25);
+
+      /* Blues */
+      --color-blue-light: #D7E3EE;
+      --color-blue-mid: #BCC4E1;
+      --color-blue-muted: #8f9bbf;
+      --color-blue-pale: #dde2f0;
+
+      /* Backgrounds */
+      --bg-body-start: #EDF0F1;
+      --bg-body-mid: #E6E9ED;
+      --bg-body-end: #F0F5F0;
+      --bg-footer-start: rgba(188,196,225,0.5);
+      --bg-card-footer: rgba(255,255,255,0.8);
+      --bg-mobile-menu: rgba(255, 255, 255, 0.98);
+
+      /* Shadows */
+      --shadow-card: 0px 4px 12px 4px rgba(55, 71, 131, 0.05);
+      --shadow-card-hover: 0px 8px 24px 6px rgba(55, 71, 131, 0.1);
+      --shadow-menu: 0px 4px 16px 4px rgba(55, 71, 131, 0.1);
+
+      /* Spacing scale */
+      --space-4: 4px;
+      --space-8: 8px;
+      --space-16: 16px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-40: 40px;
+      --space-48: 48px;
+      --space-88: 88px;
+      --space-100: 100px;
+      --space-150: 150px;
+
+      /* Border radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 24px;
+
+      /* Border */
+      --border-default: 1px solid var(--color-border);
+
+      /* Transitions */
+      --transition-fast: 0.2s ease;
+      --transition-med: 0.25s ease;
+      --transition-nav: 0.35s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-helvetica);
+      color: var(--color-body);
+      background: linear-gradient(180deg, #EDF0F1 0%, #E6E9ED 50%, #F0F5F0 100%);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Page layout ── */
+    .page { max-width: 1200px; margin: 0 auto; padding: 80px 48px; }
+    .page-header { margin-bottom: 64px; border-bottom: 1px solid var(--color-border); padding-bottom: 32px; }
+    .page-title {
+      font-family: var(--font-helvetica);
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      color: var(--color-body);
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Section ── */
+    .ds-section { margin-bottom: 72px; }
+    .ds-section-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 24px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* ── Row ── */
+    .ds-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+    .ds-col { display: flex; flex-direction: column; gap: 8px; }
+    .ds-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .ds-value {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 300;
+      color: #999;
+    }
+
+    /* ── Color swatches ── */
+    .swatch-group { display: flex; flex-wrap: wrap; gap: 16px; }
+    .swatch { display: flex; flex-direction: column; gap: 8px; min-width: 100px; }
+    .swatch-block {
+      width: 100px;
+      height: 64px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .swatch-name {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--color-body);
+      line-height: 1.4;
+    }
+    .swatch-hex {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--color-secondary);
+    }
+
+    /* ── Typography specimens ── */
+    .type-specimen { margin-bottom: 32px; padding: 24px; background: rgba(255,255,255,0.5); border-radius: var(--radius-md); border: 1px solid var(--color-border); }
+    .type-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 300;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    /* ── Spacing ── */
+    .spacing-row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; }
+    .spacing-item { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+    .spacing-bar { background: var(--color-blue-mid); border-radius: 2px; width: 20px; }
+    .spacing-label { font-family: var(--font-mono); font-size: 10px; font-weight: 300; color: var(--color-secondary); }
+
+    /* ── Radius ── */
+    .radius-row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-end; }
+    .radius-item { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .radius-box {
+      width: 64px;
+      height: 64px;
+      background: var(--color-blue-light);
+      border: 1px solid var(--color-blue-mid);
+    }
+
+    /* ── Shadows ── */
+    .shadow-row { display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-end; }
+    .shadow-item { display: flex; flex-direction: column; gap: 12px; }
+    .shadow-box {
+      width: 120px;
+      height: 80px;
+      background: rgba(255,255,255,0.8);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+
+    /* ── Components ── */
+    .component-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+    .component-block { display: flex; flex-direction: column; gap: 8px; }
+
+    /* Replicated components from site */
+    @keyframes ripple {
+      0%   { background-position: 0% 50%; }
+      25%  { background-position: 40% 60%; }
+      50%  { background-position: 100% 50%; }
+      75%  { background-position: 60% 40%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .c-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px;
+      background: var(--color-tag-bg);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .c-btn {
+      padding: 4px 8px;
+      background: var(--color-blue-light);
+      border: 1px solid var(--color-secondary);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 15px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast);
+      display: inline-block;
+    }
+    .c-btn:hover {
+      background: linear-gradient(to right, var(--color-blue-mid), #ffffff);
+      border-color: var(--color-blue-mid);
+    }
+
+    .c-nav-link {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 15px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+      padding-bottom: 2px;
+      position: relative;
+      display: inline-block;
+    }
+    .c-nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--color-body);
+      transition: width var(--transition-med);
+    }
+    .c-nav-link:hover::after { width: 100%; }
+
+    .c-section-label {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--color-secondary);
+    }
+
+    .c-gradient-word {
+      font-family: var(--font-helvetica);
+      font-weight: 500;
+      font-size: 48px;
+      letter-spacing: -0.03em;
+      position: relative;
+      display: inline-block;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1px rgba(155, 162, 186, 0.5);
+      color: transparent;
+    }
+    .c-gradient-word::before {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 0px transparent;
+      background: linear-gradient(90deg,
+        #8f9bbf, #BCC4E1, #dde2f0, #ffffff, #dde2f0, #BCC4E1, #8f9bbf
+      );
+      background-size: 300% 100%;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: ripple 6s ease-in-out infinite;
+    }
+
+    .c-card {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+      width: 280px;
+    }
+    .c-card:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+    }
+    .c-card-image {
+      background: #737f83;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .c-card-image-placeholder {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .c-card-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px;
+      min-height: 88px;
+      background: var(--bg-card-footer);
+      flex-wrap: wrap;
+    }
+    .c-card-title {
+      flex: 1 0 200px;
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--color-body);
+      line-height: 1.3;
+    }
+
+    .c-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(237, 240, 241, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+    }
+    .c-nav-logo {
+      font-family: var(--font-mono);
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      color: var(--color-body);
+      text-decoration: none;
+      position: relative;
+    }
+    .c-nav-logo::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      -webkit-text-fill-color: transparent;
+      background: linear-gradient(90deg,
+        #8f9bbf, #BCC4E1, #dde2f0, #ffffff, #dde2f0, #BCC4E1, #8f9bbf
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      animation: ripple 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .c-nav-logo:hover::after { opacity: 1; }
+    .c-nav-logo:hover { -webkit-text-fill-color: transparent; }
+
+    .c-footer-bar {
+      padding: 32px 24px;
+      background: linear-gradient(129deg, rgba(188,196,225,0.5) 0.9%, rgba(255,255,255,0.25) 99.1%);
+      border-top: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+
+    /* ── Gradient swatches ── */
+    .gradient-swatch {
+      width: 180px;
+      height: 80px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+
+    /* ── Token table ── */
+    .token-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 12px; }
+    .token-table th {
+      text-align: left;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid var(--color-border);
+      font-weight: 400;
+      color: var(--color-secondary);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .token-table td {
+      padding: 8px 12px;
+      border: 1px solid var(--color-border);
+      color: var(--color-body);
+      font-weight: 300;
+      vertical-align: middle;
+    }
+    .token-table tr:nth-child(even) td { background: rgba(255,255,255,0.3); }
+    .token-name { color: var(--color-blue-muted); }
+    .token-preview { display: inline-block; width: 16px; height: 16px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="page-header">
+    <h1 class="page-title">Design Library</h1>
+    <p class="page-subtitle">xtina.wong — Portfolio 2026</p>
+  </header>
+
+
+  <!-- ════════════════ COLOR ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Color</h2>
+
+    <div class="ds-col" style="gap: 24px;">
+
+      <div>
+        <p class="ds-label" style="margin-bottom: 12px;">Core</p>
+        <div class="swatch-group">
+          <div class="swatch">
+            <div class="swatch-block" style="background: #1a1a1a;"></div>
+            <span class="swatch-name">Body</span>
+            <span class="swatch-hex">#1a1a1a</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: #4d4d4d;"></div>
+            <span class="swatch-name">Secondary</span>
+            <span class="swatch-hex">#4d4d4d</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: #e6e6e6;"></div>
+            <span class="swatch-name">Border</span>
+            <span class="swatch-hex">#e6e6e6</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: rgba(128,128,128,0.25); background-color: rgba(128,128,128,0.25);"></div>
+            <span class="swatch-name">Tag BG</span>
+            <span class="swatch-hex">rgba(128,128,128,0.25)</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: #c7c7c7;"></div>
+            <span class="swatch-name">Divider</span>
+            <span class="swatch-hex">#c7c7c7</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="ds-label" style="margin-bottom: 12px;">Blue Palette</p>
+        <div class="swatch-group">
+          <div class="swatch">
+            <div class="swatch-block" style="background: #D7E3EE;"></div>
+            <span class="swatch-name">Blue Light</span>
+            <span class="swatch-hex">#D7E3EE</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: #BCC4E1;"></div>
+            <span class="swatch-name">Blue Mid</span>
+            <span class="swatch-hex">#BCC4E1</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: #8f9bbf;"></div>
+            <span class="swatch-name">Blue Muted</span>
+            <span class="swatch-hex">#8f9bbf</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: #dde2f0;"></div>
+            <span class="swatch-name">Blue Pale</span>
+            <span class="swatch-hex">#dde2f0</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="ds-label" style="margin-bottom: 12px;">Card Bg — #737f83</p>
+        <div class="swatch-group">
+          <div class="swatch">
+            <div class="swatch-block" style="background: #737f83;"></div>
+            <span class="swatch-name">Card Image BG</span>
+            <span class="swatch-hex">#737f83</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: rgba(255,255,255,0.8);"></div>
+            <span class="swatch-name">Card Footer BG</span>
+            <span class="swatch-hex">rgba(255,255,255,0.8)</span>
+          </div>
+          <div class="swatch">
+            <div class="swatch-block" style="background: rgba(255,255,255,0.98);"></div>
+            <span class="swatch-name">Mobile Menu BG</span>
+            <span class="swatch-hex">rgba(255,255,255,0.98)</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="ds-label" style="margin-bottom: 12px;">Gradients</p>
+        <div class="swatch-group">
+          <div class="swatch" style="min-width: 180px;">
+            <div class="gradient-swatch" style="background: linear-gradient(180deg, #EDF0F1 0%, #E6E9ED 50%, #F0F5F0 100%);"></div>
+            <span class="swatch-name">Page Background</span>
+            <span class="swatch-hex">180deg — #EDF0F1 → #E6E9ED → #F0F5F0</span>
+          </div>
+          <div class="swatch" style="min-width: 180px;">
+            <div class="gradient-swatch" style="background: linear-gradient(129deg, rgba(188,196,225,0.5) 0.9%, rgba(255,255,255,0.25) 99.1%);"></div>
+            <span class="swatch-name">Footer Background</span>
+            <span class="swatch-hex">129deg — rgba(188,196,225,0.5) → rgba(255,255,255,0.25)</span>
+          </div>
+          <div class="swatch" style="min-width: 180px;">
+            <div class="gradient-swatch" style="background: linear-gradient(to right, #BCC4E1, #ffffff);"></div>
+            <span class="swatch-name">Button Hover</span>
+            <span class="swatch-hex">→ right — #BCC4E1 → #ffffff</span>
+          </div>
+          <div class="swatch" style="min-width: 180px;">
+            <div class="gradient-swatch" style="background: linear-gradient(90deg, #8f9bbf, #BCC4E1, #dde2f0, #ffffff, #dde2f0, #BCC4E1, #8f9bbf); background-size: 300% 100%; animation: ripple 6s ease-in-out infinite;"></div>
+            <span class="swatch-name">Gradient Word / Logo Ripple</span>
+            <span class="swatch-hex">90deg shimmer — animated, 6s infinite</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════ TYPOGRAPHY ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Typography</h2>
+
+    <div style="margin-bottom: 24px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Typefaces</p>
+      <div class="ds-row">
+        <div class="ds-col">
+          <div class="type-specimen">
+            <p class="type-meta">Primary — Helvetica Neue / Helvetica / Arial / sans-serif</p>
+            <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.03em;">Aa Bb Cc 0123</p>
+            <p style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 400; color: var(--color-secondary); margin-top: 8px;">The quick brown fox jumps over the lazy dog.</p>
+          </div>
+          <div class="type-specimen">
+            <p class="type-meta">Mono — JetBrains Mono (Google Fonts) · weights 300, 400</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 300;">Aa Bb Cc 0123</p>
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 400; color: var(--color-secondary); margin-top: 8px;">The quick brown fox jumps over the lazy dog.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="ds-label" style="margin-bottom: 12px;">Type Scale</p>
+    <table class="token-table">
+      <thead>
+        <tr>
+          <th>Role</th>
+          <th>Font</th>
+          <th>Size</th>
+          <th>Weight</th>
+          <th>Letter-spacing</th>
+          <th>Other</th>
+          <th>Preview</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hero Title (desktop)</td>
+          <td>Helvetica</td>
+          <td>64px</td>
+          <td>500</td>
+          <td>-0.03em</td>
+          <td>line-height: 1</td>
+          <td style="font-family: var(--font-helvetica); font-size: 24px; font-weight: 500; letter-spacing: -0.03em;">Hero</td>
+        </tr>
+        <tr>
+          <td>Hero Title (tablet)</td>
+          <td>Helvetica</td>
+          <td>48px</td>
+          <td>500</td>
+          <td>-0.03em</td>
+          <td>line-height: 1</td>
+          <td style="font-family: var(--font-helvetica); font-size: 20px; font-weight: 500; letter-spacing: -0.03em;">Hero</td>
+        </tr>
+        <tr>
+          <td>Hero Title (mobile)</td>
+          <td>Helvetica</td>
+          <td>36px</td>
+          <td>500</td>
+          <td>-0.03em</td>
+          <td>line-height: 1</td>
+          <td style="font-family: var(--font-helvetica); font-size: 18px; font-weight: 500; letter-spacing: -0.03em;">Hero</td>
+        </tr>
+        <tr>
+          <td>Hero Subtitle</td>
+          <td>Helvetica</td>
+          <td>20px</td>
+          <td>400</td>
+          <td>—</td>
+          <td>—</td>
+          <td style="font-family: var(--font-helvetica); font-size: 15px; font-weight: 400;">Senior Product Designer</td>
+        </tr>
+        <tr>
+          <td>Hero Subtitle (mobile)</td>
+          <td>Helvetica</td>
+          <td>16px</td>
+          <td>400</td>
+          <td>—</td>
+          <td>—</td>
+          <td style="font-family: var(--font-helvetica); font-size: 13px; font-weight: 400;">Senior Product Designer</td>
+        </tr>
+        <tr>
+          <td>Nav Logo</td>
+          <td>JetBrains Mono</td>
+          <td>15px</td>
+          <td>300</td>
+          <td>-0.05em</td>
+          <td>uppercase</td>
+          <td style="font-family: var(--font-mono); font-size: 13px; font-weight: 300; letter-spacing: -0.05em; text-transform: uppercase;">xtina.wong</td>
+        </tr>
+        <tr>
+          <td>Nav Links</td>
+          <td>JetBrains Mono</td>
+          <td>15px</td>
+          <td>300</td>
+          <td>—</td>
+          <td>uppercase</td>
+          <td style="font-family: var(--font-mono); font-size: 13px; font-weight: 300; text-transform: uppercase;">Home</td>
+        </tr>
+        <tr>
+          <td>Section Label</td>
+          <td>JetBrains Mono</td>
+          <td>16px</td>
+          <td>400</td>
+          <td>—</td>
+          <td>color: secondary</td>
+          <td style="font-family: var(--font-mono); font-size: 13px; font-weight: 400; color: var(--color-secondary);">Featured Work</td>
+        </tr>
+        <tr>
+          <td>Card Title</td>
+          <td>Helvetica</td>
+          <td>20px</td>
+          <td>400</td>
+          <td>—</td>
+          <td>line-height: 1.3</td>
+          <td style="font-family: var(--font-helvetica); font-size: 14px; font-weight: 400; line-height: 1.3;">Card title text</td>
+        </tr>
+        <tr>
+          <td>Experience Role</td>
+          <td>Helvetica</td>
+          <td>24px</td>
+          <td>500</td>
+          <td>—</td>
+          <td>—</td>
+          <td style="font-family: var(--font-helvetica); font-size: 16px; font-weight: 500;">Product Designer</td>
+        </tr>
+        <tr>
+          <td>Experience Company / Date</td>
+          <td>JetBrains Mono</td>
+          <td>14px</td>
+          <td>400</td>
+          <td>—</td>
+          <td>—</td>
+          <td style="font-family: var(--font-mono); font-size: 12px; font-weight: 400;">@ BNY</td>
+        </tr>
+        <tr>
+          <td>Experience Bullets</td>
+          <td>Helvetica</td>
+          <td>16px</td>
+          <td>400</td>
+          <td>—</td>
+          <td>line-height: 1.5, color: secondary</td>
+          <td style="font-family: var(--font-helvetica); font-size: 13px; font-weight: 400; color: var(--color-secondary); line-height: 1.5;">Led design for high-stakes workflows</td>
+        </tr>
+        <tr>
+          <td>Tag</td>
+          <td>JetBrains Mono</td>
+          <td>12px</td>
+          <td>300</td>
+          <td>—</td>
+          <td>uppercase</td>
+          <td style="font-family: var(--font-mono); font-size: 11px; font-weight: 300; text-transform: uppercase;">Fintech</td>
+        </tr>
+        <tr>
+          <td>Footer / Mobile Menu Links</td>
+          <td>JetBrains Mono</td>
+          <td>0.8rem (~12.8px)</td>
+          <td>300</td>
+          <td>—</td>
+          <td>uppercase</td>
+          <td style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 300; text-transform: uppercase;">About</td>
+        </tr>
+        <tr>
+          <td>Hamburger Label</td>
+          <td>JetBrains Mono</td>
+          <td>13px</td>
+          <td>300</td>
+          <td>0.02em</td>
+          <td>uppercase</td>
+          <td style="font-family: var(--font-mono); font-size: 11px; font-weight: 300; text-transform: uppercase; letter-spacing: 0.02em;">Menu</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════ SPACING ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Spacing</h2>
+    <div class="spacing-row">
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 4px;"></div>
+        <span class="spacing-label">4px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 8px;"></div>
+        <span class="spacing-label">8px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 16px;"></div>
+        <span class="spacing-label">16px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 24px;"></div>
+        <span class="spacing-label">24px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 32px;"></div>
+        <span class="spacing-label">32px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 40px;"></div>
+        <span class="spacing-label">40px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 48px;"></div>
+        <span class="spacing-label">48px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 88px;"></div>
+        <span class="spacing-label">88px</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 100px;"></div>
+        <span class="spacing-label">100px (container padding)</span>
+      </div>
+      <div class="spacing-item">
+        <div class="spacing-bar" style="height: 150px;"></div>
+        <span class="spacing-label">150px (hero padding-top)</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Layout Containers</p>
+      <table class="token-table">
+        <thead><tr><th>Breakpoint</th><th>Container Padding</th></tr></thead>
+        <tbody>
+          <tr><td>Desktop (&gt;1024px)</td><td>100px inline</td></tr>
+          <tr><td>Tablet (≤1024px)</td><td>24px inline</td></tr>
+          <tr><td>Mobile (≤767px)</td><td>24px inline</td></tr>
+          <tr><td>Nav (desktop)</td><td>16px 100px</td></tr>
+          <tr><td>Nav (tablet/mobile)</td><td>16px 24px / 14px 24px</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ════════════════ BORDER RADIUS ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Border Radius</h2>
+    <div class="radius-row">
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 4px;"></div>
+        <span class="spacing-label">4px — Tags, Buttons, Radius SM</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 8px;"></div>
+        <span class="spacing-label">8px — Mobile Menu, Radius MD<br>(Cards on mobile)</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 24px;"></div>
+        <span class="spacing-label">24px — Cards, Radius LG</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════ SHADOWS ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Shadows</h2>
+    <div class="shadow-row">
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0px 4px 12px 4px rgba(55, 71, 131, 0.05);"></div>
+        <p class="ds-label">Card Default</p>
+        <p class="ds-value">0px 4px 12px 4px rgba(55,71,131,0.05)</p>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0px 8px 24px 6px rgba(55, 71, 131, 0.1);"></div>
+        <p class="ds-label">Card Hover</p>
+        <p class="ds-value">0px 8px 24px 6px rgba(55,71,131,0.1)</p>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0px 4px 16px 4px rgba(55, 71, 131, 0.1);"></div>
+        <p class="ds-label">Mobile Menu</p>
+        <p class="ds-value">0px 4px 16px 4px rgba(55,71,131,0.1)</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════ COMPONENTS ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Components</h2>
+
+    <!-- Tags -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Tags</p>
+      <div class="component-row">
+        <div class="component-block">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="c-tag">Fintech</span>
+            <span class="c-tag">Health</span>
+            <span class="c-tag">Systems</span>
+            <span class="c-tag">B2B</span>
+            <span class="c-tag">B2B2C</span>
+            <span class="c-tag">Data Dashboard</span>
+            <span class="c-tag">Workflow</span>
+          </div>
+          <p class="ds-value" style="margin-top: 8px;">font-mono 300 12px uppercase · padding: 4px · bg: rgba(128,128,128,0.25) · radius: 4px</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Button (CTA / Email)</p>
+      <div class="component-row">
+        <div class="component-block">
+          <a href="#" class="c-btn">Email</a>
+          <p class="ds-value">font-mono 300 15px uppercase · bg: #D7E3EE · border: 1px #4d4d4d · radius: 4px · padding: 4px 8px</p>
+          <p class="ds-value">hover → bg: gradient(→, #BCC4E1, #fff) · border: #BCC4E1</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nav links -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Nav Links</p>
+      <div class="component-row" style="gap: 24px;">
+        <div class="component-block">
+          <a href="#" class="c-nav-link">Home</a>
+          <p class="ds-value">font-mono 300 15px uppercase<br>hover → 2px underline expands left→right</p>
+        </div>
+        <div class="component-block">
+          <a href="#" class="c-nav-link">Work</a>
+        </div>
+        <div class="component-block">
+          <a href="#" class="c-nav-link">About</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section label -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Section Label</p>
+      <div class="component-block">
+        <p class="c-section-label">Featured Work</p>
+        <p class="ds-value">font-mono 400 16px · color: secondary (#4d4d4d)</p>
+      </div>
+    </div>
+
+    <!-- Animated word -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Gradient Word (Hero "effortless")</p>
+      <div class="component-block">
+        <span class="c-gradient-word" data-text="effortless">effortless</span>
+        <p class="ds-value" style="margin-top: 8px;">-webkit-text-stroke: 1px rgba(155,162,186,0.5) · ::before clips ripple gradient · animation: ripple 6s infinite</p>
+      </div>
+    </div>
+
+    <!-- Nav bar -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Navigation Bar</p>
+      <div class="c-nav-bar">
+        <a href="#" class="c-nav-logo" data-text="xtina.wong">xtina.wong</a>
+        <div style="display: flex; gap: 24px; align-items: center;">
+          <a href="#" class="c-nav-link">Home</a>
+          <a href="#" class="c-nav-link">Work</a>
+          <a href="#" class="c-nav-link">About</a>
+          <a href="#" class="c-btn">Email</a>
+        </div>
+      </div>
+      <p class="ds-value" style="margin-top: 8px;">position: fixed · bg: rgba(237,240,241,0.92) · backdrop-filter: blur(10px) · padding: 16px 100px · hides on scroll-down (translateY(-100%))</p>
+    </div>
+
+    <!-- Card -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Cards</p>
+      <div class="component-row">
+        <div class="component-block">
+          <a href="#" class="c-card">
+            <div class="c-card-image">
+              <span class="c-card-image-placeholder">Card Image</span>
+            </div>
+            <div class="c-card-footer">
+              <p class="c-card-title">Client Holdings: Surfacing client data</p>
+              <span class="c-tag">Fintech</span>
+              <span class="c-tag">B2B</span>
+            </div>
+          </a>
+          <p class="ds-value" style="margin-top: 8px;">border-radius: 24px (8px mobile) · shadow → card-default<br>hover: shadow → card-hover, translateY(-2px) · footer: rgba(255,255,255,0.8)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="margin-bottom: 40px;">
+      <p class="ds-label" style="margin-bottom: 12px;">Footer</p>
+      <div class="c-footer-bar">
+        <nav style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; margin-bottom: 16px;">
+          <a href="#" class="c-nav-link" style="font-size: 0.8rem;">Home</a>
+          <a href="#" class="c-nav-link" style="font-size: 0.8rem;">About</a>
+          <a href="#" class="c-nav-link" style="font-size: 0.8rem;">Experience</a>
+          <a href="#" class="c-btn" style="font-size: 0.8rem;">Email</a>
+        </nav>
+        <p style="font-family: var(--font-mono); font-weight: 300; font-size: 0.8rem; text-transform: uppercase; color: var(--color-body);">Christina Wong 2026</p>
+      </div>
+      <p class="ds-value" style="margin-top: 8px;">bg: gradient(129deg, rgba(188,196,225,0.5), rgba(255,255,255,0.25)) · border-top: 1px #e6e6e6 · padding-block: 88px</p>
+    </div>
+
+  </section>
+
+
+  <!-- ════════════════ ANIMATION ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Animation & Transitions</h2>
+    <table class="token-table">
+      <thead><tr><th>Token</th><th>Value</th><th>Usage</th></tr></thead>
+      <tbody>
+        <tr><td class="token-name">transition-fast</td><td>0.2s ease</td><td>Button bg, card shadow/transform, nav opacity</td></tr>
+        <tr><td class="token-name">transition-med</td><td>0.25s ease</td><td>Nav link underline expand</td></tr>
+        <tr><td class="token-name">transition-nav</td><td>0.35s ease</td><td>Nav hide/show (transform)</td></tr>
+        <tr><td class="token-name">transition-logo</td><td>0.3s ease</td><td>Nav logo gradient opacity</td></tr>
+        <tr><td class="token-name">transition-menu</td><td>0.2s ease</td><td>Mobile menu opacity + translateY</td></tr>
+        <tr><td class="token-name">@keyframes ripple</td><td>6s ease-in-out infinite</td><td>Gradient word fill + nav logo hover; background-position cycles 0%→40%→100%→60%→0%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════ BREAKPOINTS ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">Breakpoints</h2>
+    <table class="token-table">
+      <thead><tr><th>Label</th><th>Breakpoint</th><th>Key Changes</th></tr></thead>
+      <tbody>
+        <tr><td>Desktop</td><td>&gt; 1024px</td><td>100px container padding, full nav, hero title 64px, section padding 88px</td></tr>
+        <tr><td>Tablet</td><td>≤ 1024px</td><td>24px container padding, cards stack vertically, hero title 48px, experience items stack</td></tr>
+        <tr><td>Mobile</td><td>≤ 767px</td><td>Hero title 36px, hamburger menu, card radius 8px, section padding 48px, footer padding 48px</td></tr>
+        <tr><td>Card layout change</td><td>≤ 1200px</td><td>Card footer items: card-title takes full width, tags wrap below</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- ════════════════ CSS VARIABLES ════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">CSS Custom Properties (Design Tokens)</h2>
+    <table class="token-table">
+      <thead><tr><th>Variable</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td class="token-name">--font-helvetica</td><td>'Helvetica Neue', Helvetica, Arial, sans-serif</td></tr>
+        <tr><td class="token-name">--font-mono</td><td>'JetBrains Mono', monospace</td></tr>
+        <tr><td class="token-name">--color-body</td><td><span class="token-preview" style="background:#1a1a1a;"></span>#1a1a1a</td></tr>
+        <tr><td class="token-name">--color-secondary</td><td><span class="token-preview" style="background:#4d4d4d;"></span>#4d4d4d</td></tr>
+        <tr><td class="token-name">--color-border</td><td><span class="token-preview" style="background:#e6e6e6;"></span>#e6e6e6</td></tr>
+        <tr><td class="token-name">--color-tag-bg</td><td><span class="token-preview" style="background:rgba(128,128,128,0.25);"></span>rgba(128,128,128,0.25)</td></tr>
+        <tr><td class="token-name">--color-blue-light</td><td><span class="token-preview" style="background:#D7E3EE;"></span>#D7E3EE</td></tr>
+        <tr><td class="token-name">--color-blue-mid</td><td><span class="token-preview" style="background:#BCC4E1;"></span>#BCC4E1</td></tr>
+        <tr><td class="token-name">--color-blue-muted</td><td><span class="token-preview" style="background:#8f9bbf;"></span>#8f9bbf</td></tr>
+        <tr><td class="token-name">--color-blue-pale</td><td><span class="token-preview" style="background:#dde2f0;"></span>#dde2f0</td></tr>
+        <tr><td class="token-name">--shadow-card</td><td>0px 4px 12px 4px rgba(55,71,131,0.05)</td></tr>
+        <tr><td class="token-name">--shadow-card-hover</td><td>0px 8px 24px 6px rgba(55,71,131,0.1)</td></tr>
+        <tr><td class="token-name">--shadow-menu</td><td>0px 4px 16px 4px rgba(55,71,131,0.1)</td></tr>
+        <tr><td class="token-name">--radius-sm</td><td>4px</td></tr>
+        <tr><td class="token-name">--radius-md</td><td>8px</td></tr>
+        <tr><td class="token-name">--radius-lg</td><td>24px</td></tr>
+        <tr><td class="token-name">--border-default</td><td>1px solid #e6e6e6</td></tr>
+        <tr><td class="token-name">--transition-fast</td><td>0.2s ease</td></tr>
+        <tr><td class="token-name">--transition-med</td><td>0.25s ease</td></tr>
+        <tr><td class="token-name">--transition-nav</td><td>0.35s ease</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+</body>
+</html>
