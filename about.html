@@ -354,6 +354,28 @@
       text-transform: uppercase;
       color: var(--color-secondary);
     }
+
+    /* ── Page load + scroll animations ── */
+    @keyframes dissolveUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* About bio: animate on load */
+    .about-bio {
+      opacity: 0;
+      animation: dissolveUp 0.7s ease 0.05s forwards;
+    }
   </style>
 </head>
 <body>
@@ -515,6 +537,21 @@
       card.style.setProperty('--develop-delay', delay + 'ms');
       printObserver.observe(card);
     });
+
+    // Scroll-reveal for footer
+    (function () {
+      const targets = document.querySelectorAll('.footer-inner');
+      targets.forEach(el => el.classList.add('reveal'));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      targets.forEach(el => observer.observe(el));
+    })();
 
     // Attach heart + bounce behaviour to each image wrap
     document.querySelectorAll('[data-heart]').forEach(wrap => {
