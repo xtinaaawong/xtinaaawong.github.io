@@ -437,6 +437,84 @@
       color: var(--color-body);
     }
 
+    /* ── Case study content section ── */
+    .cs-content {
+      margin-top: 64px;
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+    .cs-impact {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .cs-right {
+      flex: 1.4 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .cs-section-heading {
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.1;
+      color: #1a1a1a;
+      margin-bottom: 24px;
+    }
+    .cs-body {
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 1.35;
+      color: #4d4d4d;
+    }
+    .cs-body + .cs-body { margin-top: 16px; }
+    .cs-subsection { margin-top: 24px; }
+    .cs-subsection-label {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    /* Impact cards — same structure as solved-card but 20% opacity gradient */
+    .impact-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .impact-card {
+      border: 1px solid var(--color-mid);
+      border-radius: 8px;
+      padding: 16px;
+      background: linear-gradient(116deg, rgba(188,196,225,0.2) 0.9%, rgba(255,255,255,0.08) 99.1%);
+    }
+    .impact-card-label {
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 14px;
+      text-transform: uppercase;
+      color: var(--color-body);
+      line-height: 1;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .impact-card-body {
+      font-family: var(--font-helvetica);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.35;
+      color: var(--color-body);
+    }
+
     /* ── Tablet (768–1200px) ── */
     @media (max-width: 1200px) {
       .hero-grid {
@@ -454,6 +532,17 @@
       .hero-title { font-size: 36px; letter-spacing: -0.03em; }
       .cs-image-wrap { padding: 32px; }
       .page { padding-bottom: 88px; }
+
+      .cs-content {
+        flex-direction: column;
+        gap: 40px;
+      }
+      .cs-impact,
+      .cs-right {
+        flex: none;
+        width: 100%;
+        min-width: 0;
+      }
     }
 
     /* ── Mobile (<768px) ── */
@@ -470,6 +559,13 @@
       .footer-links { gap: 16px; }
       .page { padding-bottom: 48px; }
       .btn-email { font-size: 0.8rem; }
+
+      .cs-content { gap: 32px; }
+      .cs-right { gap: 24px; }
+      .cs-section-heading {
+        font-weight: 500;
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -565,8 +661,56 @@
         <img class="cs-image-main" src="clientholdings-image.png" alt="Client Holdings — product screenshot" />
       </div>
 
+      <!-- Case study content: Impact + Process & Thinking + Hierarchy -->
+      <div class="cs-content">
+
+        <!-- Impact column -->
+        <div class="cs-impact">
+          <h2 class="cs-section-heading">Impact</h2>
+          <div class="impact-cards">
+            <div class="impact-card">
+              <span class="impact-card-label">Consolidated table with all accounts visible</span>
+              <p class="impact-card-body">Saving users time, advisors no longer need to download multiple account files and reorganize the data to how they need it.</p>
+            </div>
+            <div class="impact-card">
+              <span class="impact-card-label">More visible columns, less frustration and manual effort</span>
+              <p class="impact-card-body">Tables were previously more spacious. From user feedback, we used a dense table layout, so that advisors can see more information without needing to scroll as much to find the other remaining details.</p>
+            </div>
+            <div class="impact-card">
+              <span class="impact-card-label">Holistic view of internal and external accounts</span>
+              <p class="impact-card-body">Advisors/CSAs pull information from many locations. The ability to pull data from external accounts saves clients at least one login, one account selection, and one file download.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Process & Thinking + Hierarchy column -->
+        <div class="cs-right">
+
+          <div>
+            <h2 class="cs-section-heading">Process &amp; Thinking</h2>
+            <p class="cs-body">After project intake with Product, I reviewed existing research to understand what our clients' goals are when using this page. We then focused on figuring out the best way to display the data, implementing data visualization categorized by Security Type to surface aggregate data that could flag tax and risk exposure concerns.</p>
+            <p class="cs-body">From there we moved into smaller but equally important questions: How do we spec the interactions so the important sections stay sticky and visible while maximizing screen real estate? What's the maximum number of security types possible? Should the "Other" card display a gain/loss value for all remaining security types, or would that confuse the user?</p>
+            <p class="cs-body">We handled discussions through meetings as well as asynchronously, keeping the project moving even with a 12-hour time difference between our working hours.</p>
+          </div>
+
+          <div>
+            <h2 class="cs-section-heading">Hierarchy</h2>
+            <p class="cs-body">One new feature is the ability to track external (aka Held Away) accounts within the platform, giving advisors a more holistic view of their clients.</p>
+            <div class="cs-subsection">
+              <span class="cs-subsection-label">Filters</span>
+              <p class="cs-body">To let advisors pull the specific information they need, we kept the filters at the top. These filters affect all the content and data displays below. Users can also group their data by Client Account or by Asset, giving them the flexibility to focus on either how assets are affecting an account, or how many accounts a given asset is affecting.</p>
+            </div>
+            <div class="cs-subsection">
+              <span class="cs-subsection-label">Various Data Sources</span>
+              <p class="cs-body">External accounts report data differently than internal accounts. Internal accounts receive real-time data, while external accounts send over a mix of update frequencies. To ensure we're using the most trustworthy data, external accounts display Prior Day data while internal accounts display real-time data. It was also crucial we didn't mix the two sources, since analyzing them together risked improper calculations.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       <!-- Figma embed -->
-      <div style="margin-top: 16px;">
+      <div style="margin-top: 64px;">
         <iframe style="border: 1px solid rgba(0, 0, 0, 0.1); display: block; width: 100%; height: 450px;" src="https://embed.figma.com/design/RDRqEM71YVxDhMQN76r8k7/Client-Holdings?node-id=2-280&embed-host=share" allowfullscreen></iframe>
       </div>
 
