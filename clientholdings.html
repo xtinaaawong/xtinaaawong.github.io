@@ -693,6 +693,10 @@
           <h2 class="cs-section-heading">Impact</h2>
           <div class="impact-cards">
             <div class="impact-card">
+              <span class="impact-card-label">900 users every 30 days, and growing.</span>
+              <p class="impact-card-body">Because we know what clients rely on most, we don't just show the data, we show the calculations they'd otherwise have to build themselves.</p>
+            </div>
+            <div class="impact-card">
               <span class="impact-card-label">Consolidated table with all accounts visible</span>
               <p class="impact-card-body">Saving users time, advisors no longer need to download multiple account files and reorganize the data to how they need it.</p>
             </div>
@@ -721,11 +725,11 @@
             <h2 class="cs-section-heading">Hierarchy</h2>
             <p class="cs-body">One new feature is the ability to track external (aka Held Away) accounts within the platform, giving advisors a more holistic view of their clients.</p>
             <div class="cs-subsection">
-              <span class="cs-subsection-label">Filters</span>
+              <span class="tag" style="margin-bottom: 8px;">Filters</span>
               <p class="cs-body">To let advisors pull the specific information they need, we kept the filters at the top. These filters affect all the content and data displays below. Users can also group their data by Client Account or by Asset, giving them the flexibility to focus on either how assets are affecting an account, or how many accounts a given asset is affecting.</p>
             </div>
             <div class="cs-subsection">
-              <span class="cs-subsection-label">Various Data Sources</span>
+              <span class="tag" style="margin-bottom: 8px;">Various Data Sources</span>
               <p class="cs-body">External accounts report data differently than internal accounts. Internal accounts receive real-time data, while external accounts send over a mix of update frequencies. To ensure we're using the most trustworthy data, external accounts display Prior Day data while internal accounts display real-time data. It was also crucial we didn't mix the two sources, since analyzing them together risked improper calculations.</p>
             </div>
           </div>
@@ -780,28 +784,66 @@
     document.addEventListener('click', (e) => { if (mobileMenuEl.classList.contains('is-open') && !mobileMenuEl.contains(e.target) && !hamburgerBtn.contains(e.target)) closeMenu(); });
     mobileMenuEl.querySelectorAll('.mobile-menu-link').forEach(link => link.addEventListener('click', closeMenu));
   </script>
-
-    // Scroll-reveal
+  <script>
+    // Scroll-reveal: dissolve in content as it enters the viewport
     (function () {
-      const selectors = ['.cs-section-heading', '.impact-card', '.solved-card', '.cs-body', '.cs-image-block', '.cs-subsection-label', '.footer-inner'];
-      const targets = document.querySelectorAll(selectors.join(', '));
-      // Stagger impact cards
+      const selectors = [
+        '.cs-image-wrap',
+        '.cs-section-heading',
+        '.cs-body',
+        '.cs-subsection',
+        '.impact-card',
+        '.solved-card',
+        '.footer-inner',
+        'iframe'
+      ];
+      const targets = Array.from(document.querySelectorAll(selectors.join(', ')));
+
+      // Stagger impact cards within each group
       document.querySelectorAll('.impact-cards').forEach(group => {
         group.querySelectorAll('.impact-card').forEach((card, i) => {
-          card.style.transitionDelay = (i * 0.1) + 's';
+          card.dataset.staggerIndex = i;
         });
       });
+
+      // Add reveal class to all targets
       targets.forEach(el => el.classList.add('reveal'));
+
+      // Separate above-fold (already visible) from below-fold
+      const vpHeight = window.innerHeight;
+      const aboveFold = [];
+      const belowFold = [];
+      targets.forEach(el => {
+        if (el.getBoundingClientRect().top < vpHeight) {
+          aboveFold.push(el);
+        } else {
+          belowFold.push(el);
+        }
+      });
+
+      // Above-fold: stagger in after a brief paint delay
+      aboveFold.forEach((el, i) => {
+        setTimeout(() => {
+          el.style.transitionDelay = '0s';
+          el.classList.add('is-visible');
+        }, 80 + i * 120);
+      });
+
+      // Below-fold: reveal on scroll
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
+            const el = entry.target;
+            const stagger = el.dataset.staggerIndex ? parseFloat(el.dataset.staggerIndex) * 0.1 : 0;
+            el.style.transitionDelay = stagger + 's';
+            el.classList.add('is-visible');
+            observer.unobserve(el);
           }
         });
       }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      targets.forEach(el => observer.observe(el));
-    })();
 
+      belowFold.forEach(el => observer.observe(el));
+    })();
+  </script>
 </body>
 </html>
