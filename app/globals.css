@@ -28,7 +28,9 @@ html {
 body {
   font-family: var(--font-helvetica);
   color: var(--color-body);
-  background: var(--color-bg);
+  background: linear-gradient(to bottom right, #CAD2DE 0%, #EEE9D6 50%, #889881 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -119,7 +121,7 @@ body {
   overflow: hidden;
   padding-top: 88px;
   padding-bottom: 88px;
-  background: linear-gradient(113deg, rgba(237,240,241,0.5) 0%, rgba(230,233,237,0.5) 48%, rgba(240,245,240,0.5) 95%), #fff;
+  background: transparent;
 }
 
 .hero-strings {
@@ -238,7 +240,7 @@ body {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--color-border);
-  border-radius: 24px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 4px 12px 4px rgba(55, 71, 131, 0.05);
   background: transparent;
@@ -330,7 +332,7 @@ body {
     flex-direction: column;
   }
   .card {
-    border-radius: 24px;
+    border-radius: 8px;
   }
   .card--featured .card-image {
     height: auto;
@@ -373,7 +375,7 @@ body {
   display: block;
   position: absolute;
   inset: 0;
-  background: linear-gradient(113deg, rgba(237,240,241,0.5) 0%, rgba(230,233,237,0.5) 48%, rgba(240,245,240,0.5) 95%), #fff;
+  background: transparent;
   z-index: -1;
 }
 
