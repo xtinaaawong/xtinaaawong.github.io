@@ -15,12 +15,93 @@
       color: #1a1a1a;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-image: url('xtinaseoul_paintedrealism.png');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background: #CAD2DE;
+      overflow: hidden;
+      gap: 24px;
+    }
+
+    /* ── Liquid blob layer ── */
+    .blob-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      filter: blur(80px) saturate(1.1);
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.85;
+    }
+
+    .blob-1 {
+      width: 65vw; height: 65vw;
+      background: radial-gradient(circle, #CAD2DE 0%, transparent 70%);
+      top: -10%; left: -15%;
+      animation: drift1 14s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 55vw; height: 55vw;
+      background: radial-gradient(circle, #EEE9D6 0%, transparent 70%);
+      bottom: -15%; right: -10%;
+      animation: drift2 12s ease-in-out infinite;
+    }
+    .blob-3 {
+      width: 50vw; height: 50vw;
+      background: radial-gradient(circle, #889881 0%, transparent 70%);
+      top: 30%; left: 35%;
+      animation: drift3 16s ease-in-out infinite;
+    }
+    .blob-4 {
+      width: 40vw; height: 40vw;
+      background: radial-gradient(circle, #EEE9D6 0%, transparent 70%);
+      top: 5%; right: 10%;
+      animation: drift4 10s ease-in-out infinite;
+    }
+    .blob-5 {
+      width: 45vw; height: 45vw;
+      background: radial-gradient(circle, #CAD2DE 0%, transparent 70%);
+      bottom: 0%; left: 25%;
+      animation: drift5 13s ease-in-out infinite;
+    }
+
+    @keyframes drift1 {
+      0%   { transform: translate(0, 0) scale(1); }
+      20%  { transform: translate(20vw, 15vh) scale(1.1); }
+      45%  { transform: translate(10vw, 40vh) scale(0.95); }
+      70%  { transform: translate(30vw, 20vh) scale(1.05); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes drift2 {
+      0%   { transform: translate(0, 0) scale(1); }
+      25%  { transform: translate(-25vw, -20vh) scale(1.05); }
+      55%  { transform: translate(-10vw, -40vh) scale(0.9); }
+      80%  { transform: translate(-30vw, -10vh) scale(1.1); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes drift3 {
+      0%   { transform: translate(0, 0) scale(1); }
+      30%  { transform: translate(-20vw, -25vh) scale(1.15); }
+      60%  { transform: translate(15vw, -15vh) scale(0.88); }
+      85%  { transform: translate(-10vw, 20vh) scale(1.05); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes drift4 {
+      0%   { transform: translate(0, 0) scale(1); }
+      35%  { transform: translate(-15vw, 30vh) scale(1.1); }
+      65%  { transform: translate(-30vw, 15vh) scale(0.92); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes drift5 {
+      0%   { transform: translate(0, 0) scale(1); }
+      40%  { transform: translate(20vw, -30vh) scale(1.08); }
+      70%  { transform: translate(10vw, -15vh) scale(0.95); }
+      100% { transform: translate(0, 0) scale(1); }
     }
 
     /* ── Shake animation ── */
@@ -37,68 +118,59 @@
 
     .shake { animation: shake 0.4s ease; }
 
+    /* ── Lock icon ── */
+    .lock-icon {
+      width: 40px;
+      height: auto;
+    }
+
     /* ── Password card ── */
     .card {
-      background: rgba(255, 255, 255, 0.9);
-      background-image: linear-gradient(
-        rgba(237, 240, 241, 0.5) 0%,
-        rgba(230, 233, 237, 0.5) 50%,
-        rgba(240, 245, 240, 0.5) 100%
-      );
+      background: #ffffff;
+      border: 1px solid #c7c7c7;
       padding: 24px;
       display: flex;
       flex-direction: column;
       gap: 0;
       width: 360px;
       max-width: calc(100vw - 48px);
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       border-radius: 4px;
     }
 
-    .card-heading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 15px;
+    /* ── Label ── */
+    .pwd-label {
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin-bottom: 24px;
+      margin-bottom: 8px;
     }
 
-    .card-heading img {
-      width: 40px;
-      height: auto;
+    /* ── Input row ── */
+    .input-row {
+      display: flex;
+      gap: 8px;
     }
 
-/* ── Input ── */
+    /* ── Input ── */
     .password-input {
-      width: 100%;
-      height: 44px;
+      flex: 1;
+      height: 36px;
       padding: 0 12px;
-      background: #f0f0f0;
-      border: 1px solid #c8c8c8;
+      background: #ffffff;
+      border: 1px solid #c7c7c7;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
+      font-size: 14px;
       color: #1a1a1a;
       outline: none;
       transition: border-color 0.15s ease;
       appearance: none;
       -webkit-appearance: none;
-      margin-bottom: 8px;
-    }
-
-    .password-input:hover {
-      border-color: #1a1a1a;
     }
 
     .password-input:focus {
-      border-color: #1a1a1a;
+      border-color: #33373C;
     }
 
     .password-input.error {
@@ -107,7 +179,7 @@
 
     /* ── Error message ── */
     .error-msg {
-      font-size: 13px;
+      font-size: 12px;
       color: #C50606;
       letter-spacing: 0.02em;
       margin-top: 8px;
@@ -118,57 +190,52 @@
 
     /* ── Button ── */
     .enter-btn {
-      width: 100%;
-      padding: 8px 12px;
-      background: #D7E3EE;
-      border: 1px solid #c7c7c7;
+      flex-shrink: 0;
+      height: 36px;
+      padding: 0 16px;
+      background: #33373C;
+      border: none;
       border-radius: 4px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: #1a1a1a;
+      color: #ffffff;
       cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
+      transition: opacity 0.2s ease;
     }
 
     .enter-btn:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
-      border-color: #BCC4E1;
-    }
-
-    /* ── Bottom-left blurb ── */
-    .blurb {
-      position: fixed;
-      bottom: 24px;
-      left: 24px;
-      font-size: 14px;
-      line-height: 135%;
-      color: rgba(255, 255, 255, 0.5);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
+      opacity: 0.85;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <p class="card-heading"><img src="lock.png" alt="lock" />Password</p>
-    <input
-      class="password-input"
-      type="password"
-      id="pwd"
-      autocomplete="current-password"
-      spellcheck="false"
-    />
-    <button class="enter-btn" id="enter-btn">Enter</button>
-    <p class="error-msg" id="error-msg">Incorrect password</p>
+  <div class="blob-canvas" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
   </div>
 
-  <div class="blurb">
-    Christina in Seoul, Korea<br />
-    Photo edited in Painted Realism
+  <img class="lock-icon" src="lock.png" alt="lock" style="position:relative;z-index:1;" />
+
+  <div class="card" style="position:relative;z-index:1;">
+    <p class="pwd-label">Password</p>
+    <div class="input-row">
+      <input
+        class="password-input"
+        type="password"
+        id="pwd"
+        autocomplete="current-password"
+        spellcheck="false"
+      />
+      <button class="enter-btn" id="enter-btn">Enter</button>
+    </div>
+    <p class="error-msg" id="error-msg">Incorrect password</p>
   </div>
 
   <script>
