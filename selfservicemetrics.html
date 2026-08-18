@@ -8,7 +8,7 @@
   <title>Self-Service Metrics — Christina Wong</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Newsreader:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -213,8 +213,8 @@
       gap: 24px;
     }
     .hero-title {
-      font-family: var(--font-helvetica);
-      font-weight: 500;
+      font-family: 'Newsreader', Georgia, serif;
+      font-weight: 300;
       font-size: 48px;
       line-height: 1.05;
       letter-spacing: -0.03em;
@@ -341,10 +341,10 @@
 
     footer {
       border-top: 1px solid var(--color-border);
-      padding-block: 88px;
-      background: linear-gradient(129deg, rgba(188,196,225,0.5) 0.9%, rgba(255,255,255,0.25) 99.1%);
+      padding-block: 24px;
+      background: #CAD2DE;
     }
-    .footer-inner { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .footer-inner { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
     .footer-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 24px; align-items: center; }
     .footer-link {
       font-family: var(--font-mono);
@@ -379,8 +379,10 @@
     .footer-copy {
       font-family: var(--font-mono);
       font-weight: 300;
-      font-size: 0.8rem;
+      font-size: 13px;
+      line-height: 1;
       text-transform: uppercase;
+      text-align: right;
       color: var(--color-body);
     }
 
@@ -395,7 +397,9 @@
       .hero-title { font-size: 24px; }
       .hero-description { font-size: 15px; }
       .cs-image-wrap { padding: 20px; border-radius: 8px; }
-      footer { padding-block: 48px; }
+      footer { padding-block: 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-copy { text-align: left; }
       .footer-links { gap: 16px; }
       .page { padding-bottom: 48px; }
       .btn-email { font-size: 0.8rem; }
@@ -528,7 +532,7 @@
         <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
         <a href="mailto:xtinalw@gmail.com" class="footer-link footer-link--button">Email</a>
       </nav>
-      <p class="footer-copy">Christina Wong 2026</p>
+      <p class="footer-copy">Designed by Christina ©2026<br>Shipped with Claude Code</p>
     </div>
   </footer>
 
@@ -561,7 +565,6 @@ if (currentY <= 0) { mainNav.classList.remove('nav--hidden'); }
         '.cs-subsection',
         '.impact-card',
         '.solved-card',
-        '.footer-inner',
         'iframe'
       ];
       const targets = Array.from(document.querySelectorAll(selectors.join(', ')));

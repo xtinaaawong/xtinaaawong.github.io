@@ -8,7 +8,7 @@
   <title>Christina Wong — Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Newsreader:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +27,7 @@
     body {
       font-family: var(--font-helvetica);
       color: var(--color-body);
-      background: linear-gradient(180deg, #EDF0F1 0%, #E6E9ED 50%, #F0F5F0 100%);
+      background: linear-gradient(to bottom right, rgba(240,234,222,0.5) 0%, rgba(215,227,238,0.5) 50%, rgba(155,162,186,0.5) 100%);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -46,10 +46,10 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 100px;
-      background: rgba(237, 240, 241, 0.92);
+      background: transparent;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.35s ease, opacity 0.3s ease;
+      transition: background 0.3s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden {
       transform: translateY(-100%);
@@ -234,8 +234,7 @@
     }
     .hero-inner { position: relative; z-index: 1; }
     .hero-content {
-      /* 10 of 12 columns */
-      max-width: calc(100% * 10 / 12);
+      max-width: 100%;
       display: flex;
       flex-direction: column;
       gap: 32px;
@@ -243,9 +242,9 @@
       padding-bottom: 48px;
     }
     .hero-title {
-      font-family: var(--font-helvetica);
-      font-weight: 500;
-      font-size: 72px;
+      font-family: 'Newsreader', Georgia, serif;
+      font-weight: 300;
+      font-size: 88px;
       line-height: 1;
       letter-spacing: -0.03em;
       color: var(--color-body);
@@ -263,9 +262,12 @@
     .gradient-word {
       position: relative;
       display: inline-block;
+      font-style: italic;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1px rgba(155, 162, 186, 0.5);
+      -webkit-text-stroke: 1px rgba(155, 162, 186, 0.4);
       color: transparent;
+      padding-right: 6px;
+      filter: drop-shadow(2px 0px 0px #1a1a1a);
     }
     /* Fill layer — ::before clips gradient strictly inside letter shapes */
     .gradient-word::before {
@@ -275,13 +277,13 @@
       -webkit-text-fill-color: transparent;
       -webkit-text-stroke: 0px transparent;
       background: linear-gradient(90deg,
-        #8f9bbf,
-        #BCC4E1,
-        #dde2f0,
-        #ffffff,
-        #dde2f0,
-        #BCC4E1,
-        #8f9bbf
+        #CAD2DE,
+        #dde4c8,
+        #EEE9D6,
+        #f5f2e8,
+        #EEE9D6,
+        #dde4c8,
+        #889881
       );
       background-size: 300% 100%;
       background-repeat: no-repeat;
@@ -323,7 +325,7 @@
     .hero-subtitle .divider { color: #c7c7c7; }
 
     @media (max-width: 1024px) {
-      .hero-title { font-size: 68px; }
+      .hero-title { font-size: 72px; }
       .hero-content { max-width: 100%; padding-top: 88px; }
       .work-section { padding-top: 88px; padding-bottom: 88px; }
       .experience-section { padding-top: 0; padding-bottom: 88px; }
@@ -338,9 +340,9 @@
 
     /* ── Section label ── */
     .section-label {
-      font-family: var(--font-mono);
+      font-family: 'Newsreader', Georgia, serif;
       font-weight: 400;
-      font-size: 16px;
+      font-size: 24px;
       color: var(--color-secondary);
     }
 
@@ -416,7 +418,7 @@
     }
     .card-title {
       flex: 1 0 200px;
-      font-family: var(--font-helvetica);
+      font-family: 'Newsreader', Georgia, serif;
       font-weight: 400;
       font-size: 20px;
       color: var(--color-body);
@@ -508,13 +510,14 @@
     /* ── Footer ── */
     footer {
       border-top: 1px solid var(--color-border);
-      padding-block: 88px;
-      background: linear-gradient(129deg, rgba(188,196,225,0.5) 0.9%, rgba(255,255,255,0.25) 99.1%);
+      padding-block: 24px;
+      background: #CAD2DE;
     }
     .footer-inner {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
       gap: 24px;
     }
     .footer-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 24px; align-items: center; }
@@ -551,13 +554,17 @@
     .footer-copy {
       font-family: var(--font-mono);
       font-weight: 300;
-      font-size: 0.8rem;
+      font-size: 13px;
+      line-height: 1;
       text-transform: uppercase;
       color: var(--color-body);
+      text-align: right;
     }
 
     @media (max-width: 767px) {
-      footer { padding-block: 48px; }
+      footer { padding-block: 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .footer-copy { text-align: left; }
       .footer-links { gap: 16px; }
     }
 
@@ -760,13 +767,12 @@
   <footer>
     <div class="container footer-inner">
       <nav class="footer-links">
-        <a href="index.html" class="footer-link">Home</a>
         <a href="about.html" class="footer-link">About</a>
         <a href="#experience" class="footer-link">Experience</a>
         <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
         <a href="mailto:xtinalw@gmail.com" class="footer-link footer-link--button">Email</a>
       </nav>
-      <p class="footer-copy">Christina Wong 2026</p>
+      <p class="footer-copy">Designed by Christina ©2026<br>Shipped with Claude Code</p>
     </div>
   </footer>
 
@@ -778,10 +784,14 @@
       const currentY = window.scrollY;
       if (currentY <= 0) {
         mainNav.classList.remove('nav--hidden');
+        mainNav.style.background = 'transparent';
       } else if (currentY > lastScrollY && currentY > 80) {
         mainNav.classList.add('nav--hidden');
       } else if (currentY < lastScrollY) {
         mainNav.classList.remove('nav--hidden');
+        mainNav.style.background = 'rgba(215,227,238,0.5)';
+      } else {
+        mainNav.style.background = 'rgba(215,227,238,0.5)';
       }
       lastScrollY = currentY;
     }, { passive: true });
@@ -824,8 +834,7 @@
         '.section-label',
         '.card--featured',
         '.cards-row',
-        '.experience-item',
-        '.footer-inner'
+        '.experience-item'
       ];
       const targets = Array.from(document.querySelectorAll(revealSelectors.join(', ')));
 
