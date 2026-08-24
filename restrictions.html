@@ -340,6 +340,17 @@
       display: block;
     }
 
+    .cs-flow-embed {
+      margin-top: 48px;
+      /* break out of the container padding to allow full-width flow diagram */
+      width: min(1240px, calc(100vw - 48px));
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+    @media (max-width: 767px) {
+      .cs-flow-embed { width: calc(100vw - 48px); }
+    }
+
     .cs-figma-embed {
       margin-top: 24px;
       width: 100%;
@@ -478,8 +489,8 @@
       <div class="hero-grid">
 
         <div class="hero-left">
-          <h1 class="hero-title">Restrictions: new features with a streamlined workflow</h1>
-          <p class="hero-description">BNY Wealth Services manages complex compliance constraints that govern how advisors can trade on behalf of clients. The existing restrictions experience was fragmented across multiple screens, requiring advisors to context-switch constantly. This project consolidated the workflow from a clunky, inflexible experience into a single, streamlined flow.</p>
+          <h1 class="hero-title">Restrictions: new features with a streamlined multi-user workflow</h1>
+          <p class="hero-description">Clients often have clear instructions on what to invest in and what to avoid. BNY Wealth Services offers this kind of custom control, but the old process made it painful to get. It couldn't handle all requests at once, so advisors ended up repeating the same steps again and again just to get one client's wishes on record. We rebuilt the process into one streamlined flow that connects multiple touchpoints, cutting out the repeat work and giving advisors a faster path to "done".</p>
         </div>
 
         <div class="hero-right">
@@ -525,6 +536,196 @@
       <div class="cs-image-wrap">
         <img class="cs-image-bg" src="noisy-gradients.png" alt="" aria-hidden="true" />
         <img class="cs-image-main" src="restrictions-image.png" alt="Restrictions — product screenshot" />
+      </div>
+
+      <div class="cs-flow-embed">
+        <figure class="rf">
+          <figcaption class="rf-legend">
+            <span><i class="rf-key rf-key--solid"></i>Person acts</span>
+            <span><i class="rf-key rf-key--dash"></i>System acts</span>
+            <span><i class="rf-key rf-key--box"></i>Decision point</span>
+          </figcaption>
+
+          <div class="rf-flow">
+            <div class="rf-stage">
+              <div class="rf-side"><span class="rf-lane-name">Advisor</span><span class="rf-lane-sub">Requester</span></div>
+              <div class="rf-row" style="--rf-cols:2">
+                <div class="rf-card">
+                  <div class="rf-meta"><span>01</span></div>
+                  <h3 class="rf-title">Opens the workflows page</h3>
+                  <p class="rf-desc">Entry point for every operational request.</p>
+                </div>
+                <div class="rf-card">
+                  <div class="rf-meta"><span>02</span></div>
+                  <h3 class="rf-title">Selects trading restrictions</h3>
+                  <p class="rf-desc">One of several workflows on the page.</p>
+                </div>
+                <div class="rf-card">
+                  <div class="rf-meta"><span>03</span></div>
+                  <h3 class="rf-title">Chooses the scope: client</h3>
+                  <p class="rf-desc">Client-level applies down to every account they hold.</p>
+                  <div class="rf-pills"><span class="rf-pill rf-pill--on">Client</span><span class="rf-pill">Account</span></div>
+                </div>
+                <div class="rf-card">
+                  <div class="rf-meta"><span>04</span></div>
+                  <h3 class="rf-title">Enters the restrictions and submits</h3>
+                  <p class="rf-desc">Securities, direction, dates — plus <em>liquidate existing?</em>, the field that changes what happens downstream.</p>
+                  <div class="rf-pills"><span class="rf-pill">Status: draft</span></div>
+                </div>
+              </div>
+            </div>
+            <span class="rf-join"></span>
+            <div class="rf-stage">
+              <div class="rf-side"><span class="rf-lane-name">Operations</span><span class="rf-lane-sub">Reviewer / approver</span></div>
+              <div class="rf-row" style="--rf-cols:2">
+                <div class="rf-card">
+                  <div class="rf-meta"><span>05</span></div>
+                  <h3 class="rf-title">Operations reviews the request</h3>
+                  <p class="rf-desc">Reads it as submitted; can send it back or move it forward.</p>
+                  <div class="rf-pills"><span class="rf-pill rf-pill--pale">Status: pending review</span></div>
+                </div>
+                <div class="rf-card rf-card--decision">
+                  <div class="rf-meta"><span>Decision</span></div>
+                  <h3 class="rf-title">Liquidate existing = yes?</h3>
+                  <p class="rf-desc">If yes, the system flags a sell for each held security and remembers who owns it.</p>
+                </div>
+              </div>
+            </div>
+            <span class="rf-join rf-join--auto"></span>
+            <div class="rf-stage">
+              <div class="rf-side rf-side--sys"><span class="rf-lane-name">System</span><span class="rf-lane-sub">Automatic trigger</span></div>
+              <div class="rf-row" style="--rf-cols:1">
+                <div class="rf-card rf-card--auto">
+                  <div class="rf-meta"><span>Auto</span></div>
+                  <h3 class="rf-title">Queues the sell alert</h3>
+                  <p class="rf-desc">Matches each restricted security to the asset manager over that account. Held, not sent, until approval.</p>
+                </div>
+              </div>
+            </div>
+            <span class="rf-join"></span>
+            <div class="rf-stage">
+              <div class="rf-side"><span class="rf-lane-name">Operations</span><span class="rf-lane-sub">Approver</span></div>
+              <div class="rf-row" style="--rf-cols:1">
+                <div class="rf-card">
+                  <div class="rf-meta"><span>06</span></div>
+                  <h3 class="rf-title">Operations approves</h3>
+                  <p class="rf-desc">The single human gate. Approval is what releases everything queued behind it.</p>
+                </div>
+              </div>
+            </div>
+            <span class="rf-join rf-join--auto"></span>
+            <div class="rf-stage">
+              <div class="rf-side rf-side--sys"><span class="rf-lane-name">System</span><span class="rf-lane-sub">Automatic trigger</span></div>
+              <div class="rf-row" style="--rf-cols:1">
+                <div class="rf-card rf-card--auto">
+                  <div class="rf-meta"><span>Auto</span></div>
+                  <h3 class="rf-title">Restrictions go active, alert fires</h3>
+                  <p class="rf-desc">The status flips and the queued alert reaches the asset manager who covers the account.</p>
+                  <div class="rf-pills"><span class="rf-pill rf-pill--was">Pending review</span><span class="rf-arrowtext">&rarr;</span><span class="rf-pill rf-pill--on">Active</span></div>
+                </div>
+              </div>
+            </div>
+            <span class="rf-join rf-join--auto"></span>
+            <div class="rf-stage">
+              <div class="rf-side"><span class="rf-lane-name">Asset manager</span><span class="rf-lane-sub">Executes the trade</span></div>
+              <div class="rf-row" style="--rf-cols:2">
+                <div class="rf-card">
+                  <div class="rf-meta"><span>07</span></div>
+                  <h3 class="rf-title">Asset manager submits the trade</h3>
+                  <p class="rf-desc">Acts on the alert for the accounts they cover — no request to re-read.</p>
+                </div>
+                <div class="rf-card">
+                  <div class="rf-meta"><span>08</span></div>
+                  <h3 class="rf-title">Trade processes, position depletes</h3>
+                  <p class="rf-desc">The security clears out of the affected accounts and the restriction holds going forward.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile stacked version -->
+          <div class="rf-stack">
+            <div class="rf-card"><div class="rf-meta"><span>Advisor</span><span>01</span></div><h3 class="rf-title">Opens the workflows page</h3><p class="rf-desc">Entry point for every operational request.</p></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Advisor</span><span>02</span></div><h3 class="rf-title">Selects trading restrictions</h3><p class="rf-desc">One of several workflows on the page.</p></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Advisor</span><span>03</span></div><h3 class="rf-title">Chooses the scope: client</h3><p class="rf-desc">Client-level applies down to every account they hold.</p><div class="rf-pills"><span class="rf-pill rf-pill--on">Client</span><span class="rf-pill">Account</span></div></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Advisor</span><span>04</span></div><h3 class="rf-title">Enters the restrictions and submits</h3><p class="rf-desc">Securities, direction, dates — plus <em>liquidate existing?</em>, the field that changes what happens downstream.</p><div class="rf-pills"><span class="rf-pill">Status: draft</span></div></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Operations</span><span>05</span></div><h3 class="rf-title">Operations reviews the request</h3><p class="rf-desc">Reads it as submitted; can send it back or move it forward.</p><div class="rf-pills"><span class="rf-pill rf-pill--pale">Status: pending review</span></div></div>
+            <span class="rf-down"></span>
+            <div class="rf-card rf-card--decision"><div class="rf-meta"><span>Operations</span><span>Decision</span></div><h3 class="rf-title">Liquidate existing = yes?</h3><p class="rf-desc">If yes, the system flags a sell for each held security and remembers who owns it.</p></div>
+            <span class="rf-down rf-down--auto"></span>
+            <div class="rf-card rf-card--auto"><div class="rf-meta"><span>System</span><span>Auto</span></div><h3 class="rf-title">Queues the sell alert</h3><p class="rf-desc">Matches each restricted security to the asset manager over that account. Held, not sent, until approval.</p></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Operations</span><span>06</span></div><h3 class="rf-title">Operations approves</h3><p class="rf-desc">The single human gate. Approval is what releases everything queued behind it.</p></div>
+            <span class="rf-down rf-down--auto"></span>
+            <div class="rf-card rf-card--auto"><div class="rf-meta"><span>System</span><span>Auto</span></div><h3 class="rf-title">Restrictions go active, alert fires</h3><div class="rf-pills"><span class="rf-pill rf-pill--was">Pending review</span><span class="rf-arrowtext">&rarr;</span><span class="rf-pill rf-pill--on">Active</span></div></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Asset manager</span><span>07</span></div><h3 class="rf-title">Asset manager submits the trade</h3><p class="rf-desc">Acts on the alert for the accounts they cover — no request to re-read.</p></div>
+            <span class="rf-down"></span>
+            <div class="rf-card"><div class="rf-meta"><span>Asset manager</span><span>08</span></div><h3 class="rf-title">Trade processes, position depletes</h3><p class="rf-desc">The security clears out of the affected accounts and the restriction holds going forward.</p></div>
+          </div>
+
+          <div class="rf-notes">
+            <div><span class="rf-eyebrow">Handoffs</span><p>Two people are always involved — the advisor who requests and the operations reviewer who approves. A third only enters when there is a position to sell.</p></div>
+            <div><span class="rf-eyebrow">Design bet</span><p>One field — <em>liquidate existing</em> — decides whether the asset manager gets pulled in at all. So it earns explicit language and a confirmation at review.</p></div>
+          </div>
+        </figure>
+
+        <style>
+        .rf{--rf-ink:#1a1a1a;--rf-sub:#4d4d4d;--rf-line:#e6e6e6;--rf-blue:#8f9bbf;--rf-blue-lt:#D7E3EE;--rf-blue-mid:#BCC4E1;--rf-blue-pale:#dde2f0;
+          margin:0;color:var(--rf-ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+        .rf *{box-sizing:border-box}
+        .rf-legend{display:flex;flex-wrap:wrap;gap:28px;padding:0 0 24px;border-bottom:1px solid var(--rf-line);
+          font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;font-weight:300;letter-spacing:.1em;text-transform:uppercase;color:var(--rf-sub)}
+        .rf-legend span{display:flex;align-items:center;gap:8px;white-space:nowrap}
+        .rf-key{width:20px;flex:none}
+        .rf-key--solid{height:1px;background:var(--rf-blue)}
+        .rf-key--dash{border-top:1px dashed var(--rf-blue)}
+        .rf-key--box{height:9px;border:1px solid var(--rf-blue);background:var(--rf-blue-lt)}
+        .rf-flow{display:flex;flex-direction:column;padding-top:32px}
+        .rf-stage{display:flex;gap:32px;align-items:flex-start}
+        .rf-side{flex:0 0 168px;display:flex;flex-direction:column;gap:5px;padding:22px 22px 0 0;border-right:1px solid var(--rf-line);align-self:stretch}
+        .rf-lane-name{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+        .rf-side--sys .rf-lane-name{color:var(--rf-blue)}
+        .rf-lane-sub{font-size:12px;color:var(--rf-sub)}
+        .rf-row{flex:1 1 auto;display:grid;grid-template-columns:repeat(var(--rf-cols,2),minmax(0,1fr));gap:24px}
+        .rf-join{width:1px;height:34px;margin-left:83px;background:var(--rf-blue);position:relative}
+        .rf-join--auto{width:0;background:none;border-left:1px dashed var(--rf-blue)}
+        .rf-join::after{content:"";position:absolute;bottom:0;left:-4px;border-top:7px solid var(--rf-blue);border-left:4px solid transparent;border-right:4px solid transparent}
+        .rf-card{position:relative;background:rgba(255,255,255,.72);border:1px solid var(--rf-line);border-radius:24px;
+          padding:22px 24px 24px;box-shadow:0 8px 28px rgba(55,71,131,.05)}
+        .rf-card--decision{background:var(--rf-blue-lt);border-color:var(--rf-blue);box-shadow:0 8px 28px rgba(55,71,131,.08)}
+        .rf-card--auto{background:rgba(255,255,255,.5);border-style:dashed;border-color:var(--rf-blue);box-shadow:none}
+        .rf-meta{display:flex;justify-content:space-between;gap:12px;padding-bottom:11px;
+          font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:300;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--rf-blue)}
+        .rf-card--decision .rf-meta{color:var(--rf-sub)}
+        .rf-title{margin:0;font-size:19px;font-weight:500;letter-spacing:-.03em;line-height:1.25}
+        .rf-desc{margin:7px 0 0;font-size:14px;line-height:1.5;color:var(--rf-sub);text-wrap:pretty}
+        .rf-pills{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:14px;
+          font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+        .rf-pill{border:1px solid var(--rf-line);border-radius:4px;padding:4px 8px;color:var(--rf-sub)}
+        .rf-pill--on{border-color:var(--rf-blue);background:var(--rf-blue-lt);color:var(--rf-ink)}
+        .rf-pill--pale{border-color:var(--rf-blue-mid);background:var(--rf-blue-pale);color:var(--rf-ink)}
+        .rf-pill--was{text-decoration:line-through}
+        .rf-arrowtext{color:var(--rf-blue)}
+        .rf-stack{display:none;flex-direction:column;padding-top:28px}
+        .rf-stack .rf-card{border-radius:8px}
+        .rf-down{width:1px;height:22px;margin:0 auto;background:var(--rf-blue);position:relative}
+        .rf-down--auto{width:0;background:none;border-left:1px dashed var(--rf-blue)}
+        .rf-down::after{content:"";position:absolute;bottom:0;left:-4px;border-top:7px solid var(--rf-blue);border-left:4px solid transparent;border-right:4px solid transparent}
+        .rf-notes{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:52px;padding-top:30px;border-top:1px solid var(--rf-line)}
+        .rf-eyebrow{display:block;padding-bottom:10px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rf-blue)}
+        .rf-notes p{margin:0;font-size:17px;line-height:1.45;text-wrap:pretty}
+        .rf-notes div+div p{color:var(--rf-sub)}
+        @media (max-width:760px){
+          .rf-flow{display:none}
+          .rf-stack{display:flex;max-width:560px}
+          .rf-notes{grid-template-columns:1fr;gap:28px;margin-top:40px}
+        }
+        </style>
       </div>
 
       <div class="cs-figma-embed">
