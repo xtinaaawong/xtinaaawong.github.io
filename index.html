@@ -9,7 +9,7 @@
   <title>Christina Wong — Product Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Newsreader:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Newsreader:ital,wght@0,200;0,300;1,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +28,8 @@
     body {
       font-family: var(--font-helvetica);
       color: var(--color-body);
-      background: linear-gradient(to bottom right, rgba(240,234,222,0.5) 0%, rgba(215,227,238,0.5) 50%, rgba(155,162,186,0.5) 100%);
+      background: url('noisy-gradients.png') center center / cover fixed;
+      background-color: #cdc8c2;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -48,9 +49,7 @@
       justify-content: space-between;
       padding: 16px 100px;
       background: transparent;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: background 0.3s ease, transform 0.35s ease, opacity 0.3s ease;
+      transition: background 0.4s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden {
       transform: translateY(-100%);
@@ -89,13 +88,13 @@
     .nav-link:not(.nav-link--button):hover::after { width: 100%; }
     .nav-link--button {
       padding: 4px 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .nav-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
 
@@ -104,7 +103,7 @@
       display: none;
       align-items: center;
       gap: 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       padding: 5px 10px;
@@ -119,7 +118,7 @@
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .nav-hamburger:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
     .hamburger-icon { display: flex; align-items: center; }
@@ -178,14 +177,14 @@
       margin: 16px 16px 8px;
       padding: 4px 8px;
       width: auto;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       display: inline-block;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .mobile-menu-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
 
@@ -212,7 +211,8 @@
       top: 0;
       z-index: 1;
       min-height: 100vh;
-      background: linear-gradient(to bottom right, rgba(240,234,222,1) 0%, rgba(215,227,238,1) 50%, rgba(155,162,186,1) 100%);
+      background: url('noisy-gradients.png') center center / cover;
+      background-color: #cdc8c2;
       overflow: hidden;
     }
     .hero-inner { position: relative; z-index: 1; }
@@ -226,6 +226,7 @@
       left: -13%;
       width: 116%;
       bottom: 0;
+      opacity: 0.2;
     }
     .hero-strings img {
       width: 100%;
@@ -243,7 +244,7 @@
     }
     .hero-title {
       font-family: 'Newsreader', Georgia, serif;
-      font-weight: 300;
+      font-weight: 200;
       font-size: 88px;
       line-height: 1;
       letter-spacing: -0.03em;
@@ -264,7 +265,7 @@
       display: inline-block;
       font-style: italic;
       -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1px rgba(155, 162, 186, 0.4);
+      -webkit-text-stroke: 1px rgba(130, 160, 140, 0.4);
       color: transparent;
       padding-right: 6px;
       filter: drop-shadow(2px 0px 0px #1a1a1a);
@@ -277,7 +278,7 @@
       -webkit-text-fill-color: transparent;
       -webkit-text-stroke: 0px transparent;
       background: linear-gradient(90deg,
-        #CAD2DE,
+        #b0c4b8,
         #dde4c8,
         #EEE9D6,
         #f5f2e8,
@@ -302,7 +303,7 @@
       inset: 0;
       -webkit-text-fill-color: transparent;
       background: linear-gradient(90deg,
-        #8f9bbf, #BCC4E1, #dde2f0, #ffffff, #dde2f0, #BCC4E1, #8f9bbf
+        #7fa898, #b0c8bc, #d4e5d8, #eef5f0, #d4e5d8, #b0c8bc, #7fa898
       );
       background-size: 300% 100%;
       -webkit-background-clip: text;
@@ -367,10 +368,12 @@
       transition: background 0.25s ease;
     }
     .work-header.is-stuck {
-      background: #EEE9DC;
+      background: rgba(210, 205, 198, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .work-header::after {
-      background: linear-gradient(to bottom, #EEE9DC, transparent);
+      background: linear-gradient(to bottom, rgba(210,205,198,0.9), transparent);
     }
     .experience-header {
       background: transparent;
@@ -378,10 +381,12 @@
       transition: background 0.25s ease;
     }
     .experience-header.is-stuck {
-      background: #F0EADE;
+      background: rgba(205, 200, 193, 0.9);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
     .experience-header::after {
-      background: linear-gradient(to bottom, #F0EADE, transparent);
+      background: linear-gradient(to bottom, rgba(205,200,193,0.9), transparent);
     }
 
     /* sentinel — invisible 1px detector at section top */
@@ -407,7 +412,8 @@
       position: relative;
       z-index: 2;
       margin-top: -40px; /* peeks up over hero bottom */
-      background: linear-gradient(to bottom right, #EEE9DC 0%, #D7E3EE 60%, #BCC4D8 100%);
+      background: url('noisy-gradients.png') center center / cover;
+      background-color: #cdc8c2;
       border-radius: 20px 20px 0 0;
       box-shadow: 0 -8px 40px rgba(55,71,131,0.12);
     }
@@ -512,7 +518,8 @@
       position: relative;
       z-index: 3;
       margin-top: -40px; /* peeks up over work section bottom */
-      background: linear-gradient(to bottom right, #F0EADE 0%, #CAD2DE 60%, #9BA2BA 100%);
+      background: url('noisy-gradients.png') center center / cover;
+      background-color: #c8c3bc;
       border-radius: 20px 20px 0 0;
       box-shadow: 0 -8px 40px rgba(55,71,131,0.15);
     }
@@ -563,7 +570,7 @@
       font-family: var(--font-helvetica);
       font-weight: 400;
       font-size: 16px;
-      color: var(--color-secondary);
+      color: var(--color-body);
       line-height: 1.5;
     }
 
@@ -584,7 +591,7 @@
       z-index: 4;
       border-top: 1px solid var(--color-border);
       padding-block: 24px;
-      background: #CAD2DE;
+      background: transparent;
     }
     .footer-inner {
       display: flex;
@@ -617,11 +624,11 @@
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       padding: 4px 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .footer-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
     .footer-copy {
@@ -851,27 +858,43 @@
         <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
         <a href="mailto:xtinalw@gmail.com" class="footer-link footer-link--button">Email</a>
       </nav>
-      <p class="footer-copy">Designed by Christina ©2026<br>Shipped with Claude Code</p>
+      <p class="footer-copy">Designed by Christina ©2026</p>
     </div>
   </footer>
 
   <script>
     // Scroll hide/show nav
     let lastScrollY = window.scrollY;
+    let scrollUpStart = null; // tracks where upward scroll began
     const mainNav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       const currentY = window.scrollY;
+      const scrollingDown = currentY > lastScrollY;
+
       if (currentY <= 0) {
+        // At the very top: show nav, no background
+        scrollUpStart = null;
         mainNav.classList.remove('nav--hidden');
         mainNav.style.background = 'transparent';
-      } else if (currentY > lastScrollY && currentY > 80) {
-        mainNav.classList.add('nav--hidden');
-      } else if (currentY < lastScrollY) {
-        mainNav.classList.remove('nav--hidden');
-        mainNav.style.background = 'rgba(215,227,238,0.5)';
+      } else if (scrollingDown) {
+        // Scrolling down: hide nav and reset upward tracker
+        scrollUpStart = null;
+        if (currentY > 80) {
+          mainNav.classList.add('nav--hidden');
+          mainNav.style.background = 'transparent';
+          mainNav.style.backdropFilter = '';
+          mainNav.style.webkitBackdropFilter = '';
+        }
       } else {
-        mainNav.style.background = 'rgba(215,227,238,0.5)';
+        // Scrolling up: only reveal after 100px of upward travel
+        if (scrollUpStart === null) scrollUpStart = lastScrollY;
+        const upwardDistance = scrollUpStart - currentY;
+        if (upwardDistance >= 100) {
+          mainNav.classList.remove('nav--hidden');
+          mainNav.style.background = 'linear-gradient(to bottom, rgba(210,205,198,0.96) 0%, rgba(210,205,198,0.6) 70%, transparent 100%)';
+        }
       }
+
       lastScrollY = currentY;
     }, { passive: true });
 

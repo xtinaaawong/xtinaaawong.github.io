@@ -29,7 +29,8 @@
     body {
       font-family: var(--font-helvetica);
       color: var(--color-body);
-      background: linear-gradient(180deg, #EDF0F1 0%, #E6E9ED 50%, #F0F5F0 100%);
+      background: url('noisy-gradients.png') center center / cover fixed;
+      background-color: #cdc8c2;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -48,10 +49,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 100px;
-      background: rgba(237, 240, 241, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.35s ease, opacity 0.3s ease;
+      background: transparent;
+      transition: background 0.4s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden { transform: translateY(-100%); opacity: 0; }
     @keyframes ripple {
@@ -112,13 +111,13 @@
     .nav-link:not(.nav-link--button):hover::after { width: 100%; }
     .nav-link--button {
       padding: 4px 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .nav-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
 
@@ -126,7 +125,7 @@
       display: none;
       align-items: center;
       gap: 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       padding: 5px 10px;
@@ -140,7 +139,7 @@
       line-height: 1;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .nav-hamburger:hover { background: linear-gradient(to right, #BCC4E1, #ffffff); border-color: #BCC4E1; }
+    .nav-hamburger:hover { background: #c8c8c8; border-color: #BCC4E1; }
     .hamburger-icon { display: flex; align-items: center; }
     @media (max-width: 1024px) { #main-nav { padding: 16px 24px; } }
     @media (max-width: 767px) {
@@ -169,11 +168,11 @@
     .mobile-menu-link:not(.mobile-menu-link--button):hover { background: rgba(128,128,128,0.06); }
     .mobile-menu-link--button {
       margin: 16px 16px 8px; padding: 4px 8px; width: auto;
-      background: #D7E3EE; border: 1px solid var(--color-secondary);
+      background: #D9D9D9; border: 1px solid var(--color-secondary);
       border-radius: 4px; display: inline-block;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .mobile-menu-link--button:hover { background: linear-gradient(to right, #BCC4E1, #ffffff); border-color: #BCC4E1; }
+    .mobile-menu-link--button:hover { background: #c8c8c8; border-color: #BCC4E1; }
 
     /* ── Tag ── */
     .tag {
@@ -207,6 +206,7 @@
       left: -13%;
       width: 116%;
       height: 60%;
+      opacity: 0.2;
     }
     .page-strings img {
       width: 100%;
@@ -297,7 +297,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      background: linear-gradient(116deg, rgba(188,196,225,0.8) 0.9%, rgba(255,255,255,0.4) 99.1%);
+      background: rgba(255,255,255,0.25);
     }
     .solved-header {
       font-family: var(--font-mono);
@@ -342,7 +342,7 @@
       align-items: center;
       justify-content: center;
       padding: 4px 12px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       font-family: var(--font-mono);
@@ -355,7 +355,7 @@
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .btn-email:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
 
@@ -391,7 +391,7 @@
     footer {
       border-top: 1px solid var(--color-border);
       padding-block: 24px;
-      background: #CAD2DE;
+      background: transparent;
     }
     .footer-inner {
       display: flex;
@@ -424,11 +424,11 @@
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       padding: 4px 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .footer-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
     .footer-copy {
@@ -499,7 +499,7 @@
       border: 1px solid var(--color-mid);
       border-radius: 8px;
       padding: 16px;
-      background: linear-gradient(116deg, rgba(188,196,225,0.2) 0.9%, rgba(255,255,255,0.08) 99.1%);
+      background: rgba(255,255,255,0.25);
     }
     .impact-card-label {
       font-family: var(--font-mono);
@@ -687,7 +687,7 @@
 
       <!-- Full-width case study image -->
       <div class="cs-image-wrap">
-        <img class="cs-image-bg" src="noisy-gradients.png" alt="" aria-hidden="true" />
+        <img class="cs-image-bg" src="dark-gradient.png" alt="" aria-hidden="true" />
         <img class="cs-image-main" src="clientholdings-image.png" alt="Client Holdings — product screenshot" />
       </div>
 
@@ -761,22 +761,35 @@
         <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
         <a href="mailto:xtinalw@gmail.com" class="footer-link footer-link--button">Email</a>
       </nav>
-      <p class="footer-copy">Designed by Christina ©2026<br>Shipped with Claude Code</p>
+      <p class="footer-copy">Designed by Christina ©2026</p>
     </div>
   </footer>
 
   <script>
     // Scroll hide/show nav
     let lastScrollY = window.scrollY;
+    let scrollUpStart = null;
     const mainNav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       const currentY = window.scrollY;
+      const scrollingDown = currentY > lastScrollY;
       if (currentY <= 0) {
+        scrollUpStart = null;
         mainNav.classList.remove('nav--hidden');
-      } else if (currentY > lastScrollY && currentY > 80) {
-        mainNav.classList.add('nav--hidden');
-      } else if (currentY < lastScrollY) {
-        mainNav.classList.remove('nav--hidden');
+        mainNav.style.background = 'transparent';
+      } else if (scrollingDown) {
+        scrollUpStart = null;
+        if (currentY > 80) {
+          mainNav.classList.add('nav--hidden');
+          mainNav.style.background = 'transparent';
+        }
+      } else {
+        if (scrollUpStart === null) scrollUpStart = lastScrollY;
+        const upwardDistance = scrollUpStart - currentY;
+        if (upwardDistance >= 100) {
+          mainNav.classList.remove('nav--hidden');
+          mainNav.style.background = 'linear-gradient(to bottom, rgba(210,205,198,0.96) 0%, rgba(210,205,198,0.6) 70%, transparent 100%)';
+        }
       }
       lastScrollY = currentY;
     }, { passive: true });

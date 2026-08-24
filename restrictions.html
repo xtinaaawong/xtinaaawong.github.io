@@ -29,7 +29,8 @@
     body {
       font-family: var(--font-helvetica);
       color: var(--color-body);
-      background: linear-gradient(180deg, #EDF0F1 0%, #E6E9ED 50%, #F0F5F0 100%);
+      background: url('noisy-gradients.png') center center / cover fixed;
+      background-color: #cdc8c2;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -46,10 +47,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 16px 100px;
-      background: rgba(237, 240, 241, 0.92);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.35s ease, opacity 0.3s ease;
+      background: transparent;
+      transition: background 0.4s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden { transform: translateY(-100%); opacity: 0; }
     @keyframes ripple {
@@ -110,23 +109,23 @@
     .nav-link:not(.nav-link--button):hover::after { width: 100%; }
     .nav-link--button {
       padding: 4px 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .nav-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
     .nav-hamburger {
-      display: none; align-items: center; gap: 8px; background: #D7E3EE;
+      display: none; align-items: center; gap: 8px; background: #D9D9D9;
       border: 1px solid var(--color-secondary); border-radius: 4px; padding: 5px 10px; cursor: pointer;
       font-family: var(--font-mono); font-weight: 300; font-size: 13px; text-transform: uppercase;
       color: var(--color-body); letter-spacing: 0.02em; line-height: 1;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .nav-hamburger:hover { background: linear-gradient(to right, #BCC4E1, #ffffff); border-color: #BCC4E1; }
+    .nav-hamburger:hover { background: #c8c8c8; border-color: #BCC4E1; }
     .hamburger-icon { display: flex; align-items: center; }
     @media (max-width: 1024px) { #main-nav { padding: 16px 24px; } }
     @media (max-width: 767px) {
@@ -155,11 +154,11 @@
     .mobile-menu-link:not(.mobile-menu-link--button):hover { background: rgba(128,128,128,0.06); }
     .mobile-menu-link--button {
       margin: 16px 16px 8px; padding: 4px 8px; width: auto;
-      background: #D7E3EE; border: 1px solid var(--color-secondary);
+      background: #D9D9D9; border: 1px solid var(--color-secondary);
       border-radius: 4px; display: inline-block;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .mobile-menu-link--button:hover { background: linear-gradient(to right, #BCC4E1, #ffffff); border-color: #BCC4E1; }
+    .mobile-menu-link--button:hover { background: #c8c8c8; border-color: #BCC4E1; }
 
     .tag {
       display: inline-flex;
@@ -190,6 +189,7 @@
       left: -13%;
       width: 116%;
       height: 60%;
+      opacity: 0.2;
     }
     .page-strings img {
       width: 100%;
@@ -258,7 +258,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      background: linear-gradient(116deg, rgba(188,196,225,0.8) 0.9%, rgba(255,255,255,0.4) 99.1%);
+      background: rgba(255,255,255,0.25);
     }
     .solved-header {
       font-family: var(--font-mono);
@@ -297,7 +297,7 @@
       align-items: center;
       justify-content: center;
       padding: 4px 12px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       font-family: var(--font-mono);
@@ -310,7 +310,7 @@
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .btn-email:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
 
@@ -365,7 +365,7 @@
     footer {
       border-top: 1px solid var(--color-border);
       padding-block: 24px;
-      background: #CAD2DE;
+      background: transparent;
     }
     .footer-inner { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
     .footer-links { display: flex; flex-direction: row; flex-wrap: wrap; gap: 24px; align-items: center; }
@@ -392,11 +392,11 @@
       border: 1px solid var(--color-secondary);
       border-radius: 4px;
       padding: 4px 8px;
-      background: #D7E3EE;
+      background: #D9D9D9;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
     .footer-link--button:hover {
-      background: linear-gradient(to right, #BCC4E1, #ffffff);
+      background: #c8c8c8;
       border-color: #BCC4E1;
     }
     .footer-copy {
@@ -534,7 +534,7 @@
       </div>
 
       <div class="cs-image-wrap">
-        <img class="cs-image-bg" src="noisy-gradients.png" alt="" aria-hidden="true" />
+        <img class="cs-image-bg" src="dark-gradient.png" alt="" aria-hidden="true" />
         <img class="cs-image-main" src="restrictions-image.png" alt="Restrictions — product screenshot" />
       </div>
 
@@ -675,7 +675,7 @@
         </figure>
 
         <style>
-        .rf{--rf-ink:#1a1a1a;--rf-sub:#4d4d4d;--rf-line:#e6e6e6;--rf-blue:#8f9bbf;--rf-blue-lt:#D7E3EE;--rf-blue-mid:#BCC4E1;--rf-blue-pale:#dde2f0;
+        .rf{--rf-ink:#1a1a1a;--rf-sub:#4d4d4d;--rf-line:#e6e6e6;--rf-blue:#4d4d4d;--rf-blue-lt:#D7E3EE;--rf-blue-mid:#BCC4E1;--rf-blue-pale:#dde2f0;
           margin:0;color:var(--rf-ink);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
         .rf *{box-sizing:border-box}
         .rf-legend{display:flex;flex-wrap:wrap;gap:28px;padding:0 0 24px;border-bottom:1px solid var(--rf-line);
@@ -684,12 +684,12 @@
         .rf-key{width:20px;flex:none}
         .rf-key--solid{height:1px;background:var(--rf-blue)}
         .rf-key--dash{border-top:1px dashed var(--rf-blue)}
-        .rf-key--box{height:9px;border:1px solid var(--rf-blue);background:var(--rf-blue-lt)}
+        .rf-key--box{height:9px;border:1px solid #4d4d4d;background:rgba(0,0,0,0.12)}
         .rf-flow{display:flex;flex-direction:column;padding-top:32px}
         .rf-stage{display:flex;gap:32px;align-items:flex-start}
         .rf-side{flex:0 0 168px;display:flex;flex-direction:column;gap:5px;padding:22px 22px 0 0;border-right:1px solid var(--rf-line);align-self:stretch}
         .rf-lane-name{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
-        .rf-side--sys .rf-lane-name{color:var(--rf-blue)}
+        .rf-side--sys .rf-lane-name{color:#4d4d4d}
         .rf-lane-sub{font-size:12px;color:var(--rf-sub)}
         .rf-row{flex:1 1 auto;display:grid;grid-template-columns:repeat(var(--rf-cols,2),minmax(0,1fr));gap:24px}
         .rf-join{width:1px;height:34px;margin-left:83px;background:var(--rf-blue);position:relative}
@@ -697,18 +697,17 @@
         .rf-join::after{content:"";position:absolute;bottom:0;left:-4px;border-top:7px solid var(--rf-blue);border-left:4px solid transparent;border-right:4px solid transparent}
         .rf-card{position:relative;background:rgba(255,255,255,.72);border:1px solid var(--rf-line);border-radius:24px;
           padding:22px 24px 24px;box-shadow:0 8px 28px rgba(55,71,131,.05)}
-        .rf-card--decision{background:var(--rf-blue-lt);border-color:var(--rf-blue);box-shadow:0 8px 28px rgba(55,71,131,.08)}
-        .rf-card--auto{background:rgba(255,255,255,.5);border-style:dashed;border-color:var(--rf-blue);box-shadow:none}
+        .rf-card--decision{background:rgba(0,0,0,0.12);border-color:#4d4d4d;box-shadow:none}
+        .rf-card--auto{background:rgba(255,255,255,.5);border-style:dashed;border-color:#4d4d4d;box-shadow:none}
         .rf-meta{display:flex;justify-content:space-between;gap:12px;padding-bottom:11px;
           font-family:"JetBrains Mono",ui-monospace,monospace;font-weight:300;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--rf-blue)}
-        .rf-card--decision .rf-meta{color:var(--rf-sub)}
         .rf-title{margin:0;font-size:19px;font-weight:500;letter-spacing:-.03em;line-height:1.25}
         .rf-desc{margin:7px 0 0;font-size:14px;line-height:1.5;color:var(--rf-sub);text-wrap:pretty}
         .rf-pills{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:14px;
           font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase}
         .rf-pill{border:1px solid var(--rf-line);border-radius:4px;padding:4px 8px;color:var(--rf-sub)}
-        .rf-pill--on{border-color:var(--rf-blue);background:var(--rf-blue-lt);color:var(--rf-ink)}
-        .rf-pill--pale{border-color:var(--rf-blue-mid);background:var(--rf-blue-pale);color:var(--rf-ink)}
+        .rf-pill--on{border-color:#4d4d4d;background:rgba(0,0,0,0.12);color:var(--rf-ink)}
+        .rf-pill--pale{border-color:#4d4d4d;background:rgba(0,0,0,0.12);color:var(--rf-ink)}
         .rf-pill--was{text-decoration:line-through}
         .rf-arrowtext{color:var(--rf-blue)}
         .rf-stack{display:none;flex-direction:column;padding-top:28px}
@@ -744,7 +743,7 @@
         <a href="https://www.linkedin.com/in/tina22" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
         <a href="mailto:xtinalw@gmail.com" class="footer-link footer-link--button">Email</a>
       </nav>
-      <p class="footer-copy">Designed by Christina ©2026<br>Shipped with Claude Code</p>
+      <p class="footer-copy">Designed by Christina ©2026</p>
     </div>
   </footer>
 
