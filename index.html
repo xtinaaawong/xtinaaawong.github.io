@@ -206,17 +206,23 @@
     }
     .tags { display: flex; flex-wrap: wrap; gap: 8px; }
 
-    /* ── Hero + Work wrapper (strings span both) ── */
-    .hero-work-wrapper {
-      position: relative;
-      overflow-x: clip;
+    /* ── Sticky stack sections ── */
+    .hero {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      min-height: 100vh;
+      background: linear-gradient(to bottom right, rgba(240,234,222,1) 0%, rgba(215,227,238,1) 50%, rgba(155,162,186,1) 100%);
+      overflow: hidden;
     }
+    .hero-inner { position: relative; z-index: 1; }
+
+    /* Strings live inside hero now */
     .hero-strings {
       position: absolute;
       pointer-events: none;
       z-index: 0;
-      /* start at the hero text, span to end of work section */
-      top: 120px;
+      top: 80px;
       left: -13%;
       width: 116%;
       bottom: 0;
@@ -227,13 +233,6 @@
       object-fit: cover;
       object-position: top center;
     }
-
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      padding-bottom: 0;
-    }
-    .hero-inner { position: relative; z-index: 1; }
     .hero-content {
       max-width: 100%;
       display: flex;
@@ -328,31 +327,94 @@
     @media (max-width: 1024px) {
       .hero-title { font-size: 72px; }
       .hero-content { max-width: 100%; padding-top: 88px; }
-      .work-section { padding-top: 88px; padding-bottom: 88px; }
-      .experience-section { padding-top: 0; padding-bottom: 88px; }
+      .work-section { padding-bottom: 64px; }
+      .experience-section { padding-bottom: 64px; }
+      .work-header { padding-top: 32px; }
+      .experience-header { padding-top: 32px; }
     }
     @media (max-width: 767px) {
       .hero-title { font-size: 36px; }
       .hero-content { padding-top: 128px; padding-bottom: 32px; gap: 24px; }
       .hero-subtitle { font-size: 16px; }
-      .work-section { padding-top: 48px; padding-bottom: 48px; }
-      .experience-section { padding-top: 0; padding-bottom: 48px; }
+      .work-section { padding-bottom: 48px; border-radius: 12px 12px 0 0; }
+      .experience-section { padding-bottom: 48px; border-radius: 12px 12px 0 0; }
+      .work-header { padding-top: 24px; }
+      .experience-header { padding-top: 24px; }
+    }
+
+    /* ── Section header — sticky folder-tab strip ── */
+    .section-header {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      padding-bottom: 20px;
+      border-radius: 20px 20px 0 0;
+    }
+    .section-header::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      bottom: -52px;
+      height: 52px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .section-header.is-stuck::after { opacity: 1; }
+    .work-header {
+      background: transparent;
+      padding-top: 44px;
+      transition: background 0.25s ease;
+    }
+    .work-header.is-stuck {
+      background: #EEE9DC;
+    }
+    .work-header::after {
+      background: linear-gradient(to bottom, #EEE9DC, transparent);
+    }
+    .experience-header {
+      background: transparent;
+      padding-top: 44px;
+      transition: background 0.25s ease;
+    }
+    .experience-header.is-stuck {
+      background: #F0EADE;
+    }
+    .experience-header::after {
+      background: linear-gradient(to bottom, #F0EADE, transparent);
+    }
+
+    /* sentinel — invisible 1px detector at section top */
+    .sticky-sentinel {
+      width: 100%;
+      height: 1px;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     /* ── Section label ── */
     .section-label {
       font-family: 'Newsreader', Georgia, serif;
-      font-weight: 400;
-      font-size: 24px;
+      font-weight: 300;
+      font-size: 22px;
       color: var(--color-secondary);
     }
 
     /* ── Work section ── */
-    .work-section { padding-top: 88px; padding-bottom: 88px; position: relative; z-index: 1; }
+    .work-section {
+      padding-top: 0;
+      padding-bottom: 88px;
+      position: relative;
+      z-index: 2;
+      margin-top: -40px; /* peeks up over hero bottom */
+      background: linear-gradient(to bottom right, #EEE9DC 0%, #D7E3EE 60%, #BCC4D8 100%);
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -8px 40px rgba(55,71,131,0.12);
+    }
     .work-inner {
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 32px;
     }
     .cards-grid { display: flex; flex-direction: column; gap: 40px; }
     .cards-row { display: flex; gap: 24px; }
@@ -447,7 +509,14 @@
     .experience-section {
       padding-top: 0;
       padding-bottom: 88px;
+      position: relative;
+      z-index: 3;
+      margin-top: -40px; /* peeks up over work section bottom */
+      background: linear-gradient(to bottom right, #F0EADE 0%, #CAD2DE 60%, #9BA2BA 100%);
+      border-radius: 20px 20px 0 0;
+      box-shadow: 0 -8px 40px rgba(55,71,131,0.15);
     }
+
     .experience-inner { display: flex; flex-direction: column; gap: 24px; }
     .experience-list { display: flex; flex-direction: column; gap: 40px; }
     .experience-item {
@@ -503,13 +572,16 @@
       .experience-role { font-size: 20px; }
     }
     @media (max-width: 767px) {
-      .experience-section { padding-block: 48px; }
+      .experience-role { font-size: 18px; }
+      /* experience-section padding handled in hero block above */
       .experience-role { font-size: 18px; }
       .experience-bullets li { font-size: 15px; }
     }
 
     /* ── Footer ── */
     footer {
+      position: relative;
+      z-index: 4;
       border-top: 1px solid var(--color-border);
       padding-block: 24px;
       background: #CAD2DE;
@@ -583,13 +655,11 @@
 </head>
 <body>
 
-  <div class="hero-work-wrapper">
-  <div class="hero-strings" aria-hidden="true">
-    <img src="Strings.png" alt="" />
-  </div>
-
   <!-- ── Hero / Nav ── -->
   <section class="hero">
+    <div class="hero-strings" aria-hidden="true">
+      <img src="Strings.png" alt="" />
+    </div>
     <div class="container hero-inner">
       <nav id="main-nav">
         <a href="index.html" class="nav-logo" data-text="xtina.wong">xtina.wong</a>
@@ -637,8 +707,13 @@
 
   <!-- ── Featured Work ── -->
   <section id="work" class="work-section">
+    <div class="sticky-sentinel" id="work-sentinel"></div>
+    <div class="section-header work-header" id="work-header">
+      <div class="container">
+        <p class="section-label">Featured Work</p>
+      </div>
+    </div>
     <div class="container work-inner">
-      <p class="section-label reveal">Featured Work</p>
       <div class="cards-grid">
 
         <!-- Featured card -->
@@ -686,12 +761,15 @@
     </div>
   </section>
 
-  </div><!-- end .hero-work-wrapper -->
-
   <!-- ── Experience ── -->
   <section id="experience" class="experience-section">
+    <div class="sticky-sentinel" id="exp-sentinel"></div>
+    <div class="section-header experience-header" id="exp-header">
+      <div class="container">
+        <p class="section-label">Experience</p>
+      </div>
+    </div>
     <div class="container experience-inner">
-      <p class="section-label">Experience</p>
       <div class="experience-list">
 
         <div class="experience-item">
@@ -874,6 +952,22 @@
       }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
       belowFold.forEach(el => observer.observe(el));
+    })();
+
+    // ── Sticky header background + gradient: show only when pinned ──
+    (function () {
+      function setupStickyHeader(headerId) {
+        const header = document.getElementById(headerId);
+        if (!header) return;
+        function check() {
+          const top = header.getBoundingClientRect().top;
+          header.classList.toggle('is-stuck', top <= 0 && top > -header.offsetHeight);
+        }
+        window.addEventListener('scroll', check, { passive: true });
+        check();
+      }
+      setupStickyHeader('work-header');
+      setupStickyHeader('exp-header');
     })();
 
   </script>
