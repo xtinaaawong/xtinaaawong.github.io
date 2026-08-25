@@ -52,6 +52,8 @@
       transition: background 0.4s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden { transform: translateY(-100%); opacity: 0; }
+    #main-nav.nav--scrolled { background: rgba(214,208,200,0.96) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
     @keyframes ripple {
       0%   { background-position: 0% 50%; }
       25%  { background-position: 40% 60%; }
@@ -414,7 +416,7 @@
     <div class="container">
       <div class="about-bio">
         I'm a senior product designer with 6+ years of experience taking digital products from 0 to 1 and driving product enhancements. I've worked across both scrappy startup teams and established design orgs, and I adapt quickly to different processes. Working closely with cross-functional partners helps me understand business goals and technical constraints, so I can design solutions that actually hit the mark on what success looks like.<br><br>
-        Anyways, here's some of my favorite things :-)
+        Anyways, here are some of my favorite things :-)
       </div>
 
       <div class="photo-grid">
@@ -479,6 +481,7 @@
     const mobileMenuEl = document.getElementById('mobile-menu');
     window.addEventListener('scroll', () => {
       const currentY = window.scrollY;
+      if (currentY > 0) { mainNav.classList.add('nav--scrolled'); } else { mainNav.classList.remove('nav--scrolled'); }
       if (mobileMenuEl.classList.contains('is-open')) { lastScrollY = currentY; return; }
       if (currentY <= 0) {
         mainNav.classList.remove('nav--hidden');
