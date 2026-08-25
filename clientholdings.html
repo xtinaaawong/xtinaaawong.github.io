@@ -24,7 +24,7 @@
       --color-tag-bg: rgba(128, 128, 128, 0.25);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: #D6D0C8; }
 
     body {
       font-family: var(--font-helvetica);
@@ -54,6 +54,8 @@
       transition: background 0.4s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden { transform: translateY(-100%); opacity: 0; }
+    #main-nav.nav--scrolled { background: rgba(214,208,200,0.96) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
     @keyframes ripple {
       0%   { background-position: 0% 50%; }
       25%  { background-position: 40% 60%; }
@@ -669,7 +671,7 @@
 
         <!-- Left: title + description -->
         <div class="hero-left">
-          <h1 class="hero-title">Client Holdings: Surfacing client data that supports financial health, tax, and risk exposure</h1>
+          <h1 class="hero-title">Client Holdings: Surfacing data to track tax and risk exposure</h1>
           <p class="hero-description">BNY Wealth Services is the bank's wealth management division. Our wealth management platform is built around one goal: eliminating the swivel chair effect by putting all necessary data at the user's fingertips. This supports advisors' day-to-day work with efficient processes, freeing up more time for clients and less for admin work.</p>
         </div>
 
@@ -802,23 +804,21 @@
     const mainNav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       const currentY = window.scrollY;
+      if (currentY > 0) { mainNav.classList.add('nav--scrolled'); } else { mainNav.classList.remove('nav--scrolled'); }
       const scrollingDown = currentY > lastScrollY;
       if (currentY <= 0) {
         scrollUpStart = null;
         mainNav.classList.remove('nav--hidden');
-        mainNav.style.background = 'transparent';
       } else if (scrollingDown) {
         scrollUpStart = null;
         if (currentY > 80) {
           mainNav.classList.add('nav--hidden');
-          mainNav.style.background = 'transparent';
         }
       } else {
         if (scrollUpStart === null) scrollUpStart = lastScrollY;
         const upwardDistance = scrollUpStart - currentY;
-        if (upwardDistance >= 100) {
+        if (upwardDistance >= 30) {
           mainNav.classList.remove('nav--hidden');
-          mainNav.style.background = 'linear-gradient(to bottom, rgba(210,205,198,0.96) 0%, rgba(210,205,198,0.6) 70%, transparent 100%)';
         }
       }
       lastScrollY = currentY;
