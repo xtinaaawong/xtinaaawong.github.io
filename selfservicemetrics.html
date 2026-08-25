@@ -29,8 +29,7 @@
     body {
       font-family: var(--font-helvetica);
       color: var(--color-body);
-      background: url('noisy-gradients.png') center center / cover fixed;
-      background-color: #cdc8c2;
+      background: linear-gradient(135deg, #D6D0C8 0%, #BDB7B1 50%, #A29C9A 100%);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -432,6 +431,35 @@
   </style>
 </head>
 <body>
+  <script>
+    (function() {
+      // Generate noise off-DOM — no layout impact
+      var c = document.createElement('canvas');
+      c.width = 256; c.height = 256;
+      var ctx = c.getContext('2d');
+      var img = ctx.createImageData(256, 256);
+      var d = img.data;
+      for (var i = 0; i < d.length; i += 4) {
+        var v = 128 + Math.floor((Math.random() - 0.5) * 55);
+        d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      var dataURL = c.toDataURL('image/png');
+      var div = document.createElement('div');
+      div.style.cssText = [
+        'position:fixed',
+        'top:0','left:0','right:0','bottom:0',
+        'pointer-events:none',
+        'z-index:9998',
+        'opacity:0.4',
+        'mix-blend-mode:soft-light',
+        'background-image:url(' + dataURL + ')',
+        'background-repeat:repeat',
+        'background-size:256px 256px'
+      ].join(';');
+      document.body.appendChild(div);
+    })();
+  </script>
 
   <div class="page">
     <div class="page-strings" aria-hidden="true">
