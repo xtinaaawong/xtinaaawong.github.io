@@ -14,17 +14,22 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    ::selection {
+      background: rgba(160, 238, 170, 0.75);
+      color: inherit;
+    }
+
     :root {
       --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --color-body: #1a1a1a;
       --color-secondary: #4d4d4d;
       --color-border: #e6e6e6;
-      --color-mid: #c7c7c7;
+      --color-mid: #e6e6e6;
       --color-tag-bg: rgba(128, 128, 128, 0.25);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: #D6D0C8; }
 
     body {
       font-family: var(--font-helvetica);
@@ -50,6 +55,8 @@
       transition: background 0.4s ease, transform 0.35s ease, opacity 0.3s ease;
     }
     #main-nav.nav--hidden { transform: translateY(-100%); opacity: 0; }
+    #main-nav.nav--scrolled { background: rgba(214,208,200,0.96) !important; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+
     @keyframes ripple {
       0%   { background-position: 0% 50%; }
       25%  { background-position: 40% 60%; }
@@ -118,6 +125,8 @@
       border-color: #BCC4E1;
     }
     .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
       display: none; align-items: center; gap: 8px; background: #D9D9D9;
       border: 1px solid var(--color-secondary); border-radius: 4px; padding: 5px 10px; cursor: pointer;
       font-family: var(--font-mono); font-weight: 300; font-size: 13px; text-transform: uppercase;
@@ -130,7 +139,9 @@
     @media (max-width: 767px) {
       #main-nav { padding: 14px 24px; }
       .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none; display: flex; }
     }
     .mobile-menu {
       position: fixed;
@@ -213,8 +224,8 @@
       gap: 24px;
     }
     .hero-title {
-      font-family: 'Newsreader', Georgia, serif;
-      font-weight: 300;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 500;
       font-size: 48px;
       line-height: 1.05;
       letter-spacing: -0.03em;
@@ -553,7 +564,7 @@
               </ul>
             </div>
             <div class="solved-footer">
-              <p style="font-weight: 500;">Reach out for the full case study</p>
+              <p style="font-weight: 400;">Reach out for the full case study</p>
               <a href="mailto:xtinalw@gmail.com" class="btn-email">Email</a>
             </div>
           </div>
@@ -696,10 +707,7 @@
             <div class="rf-card"><div class="rf-meta"><span>Asset manager</span><span>08</span></div><h3 class="rf-title">Trade processes, position depletes</h3><p class="rf-desc">The security clears out of the affected accounts and the restriction holds going forward.</p></div>
           </div>
 
-          <div class="rf-notes">
-            <div><span class="rf-eyebrow">Handoffs</span><p>Two people are always involved — the advisor who requests and the operations reviewer who approves. A third only enters when there is a position to sell.</p></div>
-            <div><span class="rf-eyebrow">Design bet</span><p>One field — <em>liquidate existing</em> — decides whether the asset manager gets pulled in at all. So it earns explicit language and a confirmation at review.</p></div>
-          </div>
+
         </figure>
 
         <style>
@@ -780,9 +788,14 @@
     const mainNav = document.getElementById('main-nav');
     window.addEventListener('scroll', () => {
       const currentY = window.scrollY;
-if (currentY <= 0) { mainNav.classList.remove('nav--hidden'); }
-      else if (currentY > lastScrollY && currentY > 80) { mainNav.classList.add('nav--hidden'); }
-      else if (currentY < lastScrollY) { mainNav.classList.remove('nav--hidden'); }
+      if (currentY > 0) { mainNav.classList.add('nav--scrolled'); } else { mainNav.classList.remove('nav--scrolled'); }
+      if (currentY <= 0) {
+        mainNav.classList.remove('nav--hidden');
+      } else if (currentY > lastScrollY && currentY > 80) {
+        mainNav.classList.add('nav--hidden');
+      } else if (currentY < lastScrollY) {
+        mainNav.classList.remove('nav--hidden');
+      }
       lastScrollY = currentY;
     }, { passive: true });
 

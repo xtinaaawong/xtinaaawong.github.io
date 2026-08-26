@@ -14,6 +14,11 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    ::selection {
+      background: rgba(160, 238, 170, 0.75);
+      color: inherit;
+    }
+
     :root {
       --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -100,6 +105,8 @@
 
     /* ── Mobile hamburger button ── */
     .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
       display: none;
       align-items: center;
       gap: 8px;
@@ -127,7 +134,9 @@
     @media (max-width: 767px) {
       #main-nav { padding: 14px 24px; }
       .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none; display: flex; }
     }
 
     /* ── Mobile dropdown menu ── */
@@ -323,7 +332,7 @@
       font-size: 20px;
       color: var(--color-body);
     }
-    .hero-subtitle .divider { color: #c7c7c7; }
+    .hero-subtitle .divider { color: #f0f0f0; }
 
     @media (max-width: 1024px) {
       .hero-title { font-size: 72px; }
@@ -399,10 +408,13 @@
 
     /* ── Section label ── */
     .section-label {
-      font-family: 'Newsreader', Georgia, serif;
-      font-weight: 300;
-      font-size: 22px;
+      font-family: var(--font-mono);
+      font-weight: 400;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
       color: var(--color-secondary);
+      opacity: 0.5;
     }
 
     /* ── Work section ── */

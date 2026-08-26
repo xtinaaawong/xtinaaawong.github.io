@@ -14,13 +14,18 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    ::selection {
+      background: rgba(160, 238, 170, 0.75);
+      color: inherit;
+    }
+
     :root {
       --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --color-body: #1a1a1a;
       --color-secondary: #4d4d4d;
       --color-border: #e6e6e6;
-      --color-mid: #c7c7c7;
+      --color-mid: #e6e6e6;
       --color-tag-bg: rgba(128, 128, 128, 0.25);
     }
 
@@ -125,6 +130,8 @@
     }
 
     .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
       display: none;
       align-items: center;
       gap: 8px;
@@ -148,7 +155,9 @@
     @media (max-width: 767px) {
       #main-nav { padding: 14px 24px; }
       .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none; display: flex; }
     }
     .mobile-menu {
       position: fixed;
@@ -235,8 +244,8 @@
       gap: 24px;
     }
     .hero-title {
-      font-family: 'Newsreader', Georgia, serif;
-      font-weight: 300;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 500;
       font-size: 48px;
       line-height: 1.05;
       letter-spacing: -0.03em;

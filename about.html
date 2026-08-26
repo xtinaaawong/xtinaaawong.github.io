@@ -13,23 +13,28 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    ::selection {
+      background: rgba(160, 238, 170, 0.75);
+      color: inherit;
+    }
+
     :root {
       --font-helvetica: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --color-body: #1a1a1a;
       --color-secondary: #4d4d4d;
       --color-border: #e6e6e6;
-      --color-mid: #c7c7c7;
+      --color-mid: #f0f0f0;
       --color-tag-bg: rgba(128, 128, 128, 0.25);
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; background-color: #D6D0C8; }
 
     body {
       font-family: var(--font-helvetica);
       color: var(--color-body);
-      background: url('noisy-gradients.png') center center / cover fixed;
-      background-color: #cdc8c2;
+      
+      background: linear-gradient(135deg, #D6D0C8 0%, #BDB7B1 50%, #A29C9A 100%);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
@@ -120,11 +125,13 @@
     }
     .nav-link--button:hover {
       background: #c8c8c8;
-      border-color: #BCC4E1;
+      border-color: #f0f0f0;
     }
 
     /* ── Mobile hamburger ── */
     .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none;
       display: none;
       align-items: center;
       gap: 8px;
@@ -142,14 +149,19 @@
       line-height: 1;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .nav-hamburger:hover { background: #c8c8c8; border-color: #BCC4E1; }
+    .nav-hamburger:hover { background: #c8c8c8; border-color: #f0f0f0; }
+    .nav-hamburger:focus { outline: none; border-color: #f0f0f0; }
+    .nav-hamburger:focus-visible { outline: none; border-color: #f0f0f0; }
+    .nav-hamburger:active { outline: none; border-color: #f0f0f0; }
     .hamburger-icon { display: flex; align-items: center; }
 
     @media (max-width: 1024px) { #main-nav { padding: 16px 24px; } }
     @media (max-width: 767px) {
       #main-nav { padding: 14px 24px; }
       .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-hamburger {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-appearance: none; display: flex; }
     }
 
     /* ── Mobile dropdown ── */
@@ -178,7 +190,7 @@
       border-radius: 4px; display: inline-block;
       transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .mobile-menu-link--button:hover { background: #c8c8c8; border-color: #BCC4E1; }
+    .mobile-menu-link--button:hover { background: #c8c8c8; border-color: #f0f0f0; }
 
     /* ── Page ── */
     .page {
@@ -350,8 +362,25 @@
     }
     .footer-link--button:hover {
       background: #c8c8c8;
-      border-color: #BCC4E1;
+      border-color: #f0f0f0;
     }
+    @media (max-width: 767px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+      .footer-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .footer-copy {
+        margin-top: 40px;
+        text-align: center;
+      }
+    }
+
     .footer-copy {
       font-family: var(--font-mono);
       font-weight: 300;
@@ -386,6 +415,34 @@
   </style>
 </head>
 <body>
+  <script>
+    (function() {
+      var c = document.createElement('canvas');
+      c.width = 256; c.height = 256;
+      var ctx = c.getContext('2d');
+      var img = ctx.createImageData(256, 256);
+      var d = img.data;
+      for (var i = 0; i < d.length; i += 4) {
+        var v = 128 + Math.floor((Math.random() - 0.5) * 55);
+        d[i] = v; d[i+1] = v; d[i+2] = v; d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      var dataURL = c.toDataURL('image/png');
+      var div = document.createElement('div');
+      div.style.cssText = [
+        'position:fixed',
+        'top:0','left:0','right:0','bottom:0',
+        'pointer-events:none',
+        'z-index:9998',
+        'opacity:0.4',
+        'mix-blend-mode:soft-light',
+        'background-image:url(' + dataURL + ')',
+        'background-repeat:repeat',
+        'background-size:256px 256px'
+      ].join(';');
+      document.body.appendChild(div);
+    })();
+  </script>
 
   <nav id="main-nav">
     <a href="index.html" class="nav-logo" data-text="xtina.wong">xtina.wong</a>
